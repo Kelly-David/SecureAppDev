@@ -6,7 +6,7 @@
  * Time: 15:20
  */
 
-include('./utility.php');
+include("../includes/utils.php");
 
 $DBMS = 'MySQL';
 
@@ -57,7 +57,5 @@ if( !@mysqli_query($link,$sql_create_tb)) {
 }
 
 // Done - redirect
-$login = "<a href='login.php'>login</a>";
-header("location: register.php");
-
-?>
+$login = "<a href='/register.php'>login</a>";
+header("location: /register.php");

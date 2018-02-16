@@ -26,7 +26,7 @@ if( isset( $_POST[ 'create_db' ] ) ) {
 <html>
 
 <head>
-    <?php include("partials/styles.php"); ?>
+    <?php include("includes/styles.php"); ?>
     <title>Setup</title>
 </head>
 
@@ -58,6 +58,6 @@ if( isset( $_POST[ 'create_db' ] ) ) {
             </div>
         </div>
     </div>
-    <?php include("partials/js.php"); ?>
+    <?php include("includes/js.php"); ?>
 </div>
 </body>
