@@ -58,6 +58,6 @@ if( !@mysqli_query($link,$sql_create_tb)) {
 
 // Done - redirect
 $login = "<a href='login.php'>login</a>";
-header("location: index.php");
+header("location: register.php");
 
 ?>

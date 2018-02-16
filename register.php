@@ -2,9 +2,15 @@
 /**
  * Created by PhpStorm.
  * User: david
- * Date: 16/02/2018
- * Time: 14:28
+ * Date: 15/02/2018
+ * Time: 15:13
  */
+
+
+?>
+
+
+<?php
 
 $login = "";
 
@@ -16,17 +22,18 @@ if( isset( $_POST[ 'create_db' ] ) ) {
         include_once 'db/mysql.php';
     }
     else {
-        debug_to_console( 'ERROR: Invalid database selected. Please review the config file syntax.' );
-        header("register.php");
+        die();
     }
 }
 
 ?>
+
+
 <!DOCTYPE html>
 <html>
 
 <head>
-    <?php include("partials/styles.php"); ?>
+    <?php include("includes/styles.php"); ?>
     <title>Setup</title>
 </head>
 
