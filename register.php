@@ -27,6 +27,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     debug_to_console( $email );
     debug_to_console( $dob );
 
+    // Validate the email
+    if ((!empty($email)) && (filter_var($email, FILTER_VALIDATE_EMAIL))) {
+
+        // Prep SQL statement
+        $sql = "SELECT AES_DECRYPT(email) FROM user WHERE email = ?";
+
+
+
+    }
+    else {
+        $email_err = "Email invalid";
+    }
+
+
 }
 
 
