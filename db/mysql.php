@@ -57,5 +57,5 @@ if( !@mysqli_query($link,$sql_create_tb)) {
 }
 
 // Done - redirect
-$login = "<a href='/register.php'>login</a>";
-header("location: /register.php");
+$login = "<a href='register.php'>login</a>";
+header("location: register.php");
