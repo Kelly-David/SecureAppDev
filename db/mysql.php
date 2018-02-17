@@ -12,7 +12,7 @@ $DBMS = 'MySQL';
 
 $DB_Param = array();
 $DB_Param['server'] = 'localhost:3306';
-$DB_Param['database'] = 'c00193216';
+$DB_Param['database'] = 'part2';
 $DB_Param['user'] = 'root';
 $DB_Param['password'] = '';
 
@@ -42,10 +42,10 @@ if( !@((bool)mysqli_query($link, "USE " . $DB_Param['database'])) ) {
 // Create the user table
 $sql_create_tb = "CREATE TABLE user(
     id INT NOT NULL AUTO_INCREMENT,
-    fullname VARCHAR(50),
-    passcode VARCHAR(200),
+    username VARCHAR(50),
+    password VARCHAR(200),
     email VARCHAR(200),
-    dob VARCHAR(10),
+    dob VARCHAR(100),
     lastLogin TIMESTAMP,
     state BOOLEAN NOT NULL DEFAULT 1,
     attempt INT(10) NOT NULL DEFAULT 0,

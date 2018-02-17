@@ -30,18 +30,60 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate the email
     if ((!empty($email)) && (filter_var($email, FILTER_VALIDATE_EMAIL))) {
 
+        $key = "ASKSDFNSDFKEISDJAHDLDSDF1235UUUiidfsdf";
+
         // Prep SQL statement
-        $sql = "SELECT AES_DECRYPT(email) FROM user WHERE email = ?";
+        $sql = "SELECT AES_DECRYPT(email, $key) FROM user WHERE email = AES_ENCRYPT(?, $key)";
 
+        if($stmt = mysqli_prepare($link, $sql)) {
 
+            mysqli_stmt_bind_param($stmt, "s", $param_email);
+
+            $param_email = $email;
+
+            if(mysqli_stmt_execute($stmt)){
+                mysqli_stmt_store_result($stmt);
+
+                if(mysqli_stmt_num_rows($stmt) == 1){
+                    mysqli_stmt_bind_result($stmt, $retrieved_email);
+
+                    if(mysqli_stmt_fetch($stmt)) {
+                        //Debugging
+                        debug_to_console( $retrieved_email );
+
+                        if($param_email == $retrieved_email) {
+                            $email_err = "Email registered in the system. Re-enter or <a href='login.php'>login</a>.";
+                        }
+                    }
+                }
+            }
+            // Close statement
+            mysqli_stmt_close($stmt);
+        }
 
     }
     else {
         $email_err = "Email invalid";
     }
 
+    if (!empty($password) && !(empty($user)) && !empty($email) && !empty($dob)) {
 
-}
+        $key = "ASKSDFNSDFKEISDJAHDLDSDF1235UUUiidfsdf";
+
+        debug_to_console($key);
+
+        $sql = "INSERT INTO user (`username`, `password`, `email`, `dob`) VALUES ($user, $password, $email, $dob)";
+
+        $result = mysqli_query($link,$sql);
+
+        if (!$result) {
+            die('Could not query:' . mysql_error());
+        } // OK
+    }
+
+
+
+} // POST REQ END
 
 
 ?>
