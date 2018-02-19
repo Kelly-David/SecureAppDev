@@ -14,3 +14,12 @@ function debug_to_console( $data ) {
 
     echo "<script>console.log( 'Debug Objects: " . $output . "' );</script>";
 }
+
+
+// Get time
+function getTime() {
+    // Time
+    $server_time = new DateTime();
+    $server_time = $server_time->format('Y-m-d H:i:s');
+    return $server_time;
+}
