@@ -33,7 +33,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         $key = "ASKSDFNSDFKEISDJAHDLDSDF1235UUUiidfsdf";
 
         // Prep SQL statement
-        $sql = "SELECT AES_DECRYPT(email, $key) FROM user WHERE email = AES_ENCRYPT(?, $key)";
+        $sql = "SELECT email FROM user WHERE email = ?";
 
         if($stmt = mysqli_prepare($link, $sql)) {
 
@@ -72,13 +72,24 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
         debug_to_console($key);
 
-        $sql = "INSERT INTO user (`username`, `password`, `email`, `dob`) VALUES ($user, $password, $email, $dob)";
+        $sql = "INSERT INTO user (`username`, `password`, `email`, `dob`) VALUES (?, ?, ?, ?)";
 
-        $result = mysqli_query($link,$sql);
+        if($stmt = mysqli_prepare($link, $sql)) {
 
-        if (!$result) {
-            die('Could not query:' . mysql_error());
-        } // OK
+            mysqli_stmt_bind_param($stmt, "ssss", $p_username, $p_password, $p_email, $p_dob);
+            $p_username = $user;
+            $p_password = $password;
+            $p_email = $email;
+            $p_dob = $dob;
+
+            if(mysqli_stmt_execute($stmt)){
+                // User created - redirect to login
+                header("location: login.php" );
+
+            } else {
+                echo "Please try again later.";
+            }
+        }
     }
 
 
