@@ -5,6 +5,11 @@
  * Date: 19/02/2018
  * Time: 13:29
  */
+
+// Define variables
+
+$email = $password = "";
+$email_err = $password_err = "";
 ?>
 <!DOCTYPE html>
 <html>
@@ -23,13 +28,6 @@
         <div class="col-lg-8 col-sm-12">
             <div class="card">
                 <div class="card-header">Login
-                    <span class="float-right">
-                            <small class="form-text text-muted">
-                                <a href="" data-toggle="collapse" data-target="#demo">
-                                    <i class="fa fa-info" aria-hidden="true">&nbsp;</i>
-                                </a>
-                            </small>
-                            <span>
                 </div>
                 <div class="card-body">
                     <form action="" method="post" autocomplete="off" >
