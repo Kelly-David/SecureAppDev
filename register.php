@@ -79,7 +79,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
             mysqli_stmt_bind_param($stmt, "ssss", $p_username, $p_password, $p_email, $p_dob);
             $p_username = $user;
-            $p_password = $password;
+            $options = [
+                'cost' => 11,
+                'salt' => mcrypt_create_iv(22, MCRYPT_DEV_URANDOM),
+            ];
+            $p_password = password_hash($password, PASSWORD_BCRYPT, $options);
             $p_email = $email;
             $p_dob = $dob;
 

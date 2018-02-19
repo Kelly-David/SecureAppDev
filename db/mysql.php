@@ -56,6 +56,16 @@ if( !@mysqli_query($link,$sql_create_tb)) {
     debug_to_console("Could not create user table");
 }
 
+$sql_create_session_tb = "CREATE TABLE clientSession(
+    SessionID varchar(33) NOT NULL,
+	Counter int(11) NOT NULL,
+	Tstamp datetime NOT NULL,
+    PRIMARY KEY (SessionID)
+);";
+if( !@mysqli_query($link,$sql_create_session_tb)) {
+    debug_to_console("Could not create user table");
+}
+
 // Done - redirect
 $login = "<a href='register.php'>login</a>";
 header("location: register.php");

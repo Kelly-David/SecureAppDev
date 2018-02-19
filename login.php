@@ -7,12 +7,14 @@
  */
 require_once("db/dbconfig.php");
 require_once("includes/utils.php");
-session_start();
 
+$can_authenticate = true;
+
+require_once ("includes/client.php");
 // Define variables
 
 $email = $password = "";
-$email_err = $password_err = "";
+$email_err = $password_err = $login_err = "";
 
 if($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -55,7 +57,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // AUTHENTICATE THE PASSWORD
-    if((empty($email_err)) && !empty($password)) {
+    if(empty($email_err)) {
 
         // Prep SQL statement
         $sql = "SELECT username, password, lastLogin, attempt  FROM `user` WHERE email = ? ";
@@ -65,14 +67,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             mysqli_stmt_bind_param($stmt, "s", $param_email);
 
             $param_email = $email;
+            debug_to_console($param_email);
+
 
             if (mysqli_stmt_execute($stmt)) {
                 mysqli_stmt_store_result($stmt);
 
-                if (!(mysqli_stmt_num_rows($stmt) == 1)) {
+                if ((mysqli_stmt_num_rows($stmt) == 1)) {
 
-                    //ok
-                    //bind the result
                     mysqli_stmt_bind_result($stmt, $myusername, $hashed_password, $llogin, $att);
 
                     if (mysqli_stmt_fetch($stmt)) {
@@ -90,7 +92,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                             if(password_verify($password, $hashed_password)) {
 
                                 // Password is correct
-                                $update = "UPDATE user SET lastLogin = ?, attempt = ? WHERE username = ?";
+                                $update = "UPDATE user SET lastLogin = ?, attempt = ? WHERE email = ?";
                                 if($stmt = mysqli_prepare($link, $update)) {
 
                                     mysqli_stmt_bind_param($stmt, "sss", $param_lastLogin, $param_attempt, $param_username);
@@ -126,17 +128,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                                         echo "Please try again later.";
                                     }
                                 }
-
-                                $session_sql = "UPDATE clientSession SET Counter = Counter + 1, Tstamp = NOW() WHERE SessionID = '$anonClientID'";
-
-                                $result = mysqli_query($link,$session_sql);
-
-                                if (!$result) {
-
-                                    die('Could not query:' . mysql_error());
-                                }
-
-                                $username_err = 'Username ' . htmlspecialchars($email, 3) . ' and password combination invalid';
                             }
                         }
                     }
@@ -147,55 +138,30 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
         }
     }
+
+    if($email_err || $password_err) {
+
+        $session_sql = "UPDATE clientSession SET Counter = Counter + 1, Tstamp = NOW() WHERE SessionID = '$anonClientID'";
+
+        $result = mysqli_query($link,$session_sql);
+
+        if (!$result) {
+
+            die('Could not query:' . mysql_error());
+        }
+
+        $email_err = 'Email ' . htmlspecialchars($email, 3) . ' and password combination invalid';
+
+    }
 }
 
 
 
 
 ?>
-<!DOCTYPE html>
-<html>
-
-<head>
-    <?php include("includes/styles.php"); ?>
-    <title>Login</title>
-</head>
-
-<body>
-<div class="container-fluid">
-    <div class="row" style="margin: 1rem 0 0 0">
-        <div class="col-lg-2">
-            <p></p>
-        </div>
-        <div class="col-lg-8 col-sm-12">
-            <div class="card">
-                <div class="card-header">Login
-                </div>
-                <div class="card-body">
-                    <form action="" method="post" autocomplete="off" >
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" class="form-control form-control-sm" id="email" name="email" placeholder="Enter an email" >
-                            <small id="emailAlert" class="form-text text-muted float-right"><?php echo $email_err; ?></small>
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="password" class="form-control form-control-sm" id="password" name="password" placeholder="Enter a password" >
-                            <span>
-                                    <small id="passwordAlert" class="form-text text-muted float-right"><?php echo $password_err; ?></small>
-                                </span>
-                        </div>
-                        <br>
-                        <small>
-                            <a href="register.php">New user?</a>
-                        </small>
-                        <button type="submit" id="submit" class="btn btn-primary btn-sm float-right"><i class="fa fa-sign-in" aria-hidden="true"></i> Submit</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <?php include("includes/js.php"); ?>
-</div>
-</body>
-</html>
+<?php
+if($can_authenticate) {
+    require_once("includes/loginForm.php");
+} else {
+    require_once("includes/lockout.php");
+}
