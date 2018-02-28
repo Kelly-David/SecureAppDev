@@ -50,6 +50,7 @@ $sql_create_tb = "CREATE TABLE user(
     state BOOLEAN NOT NULL DEFAULT 1,
     attempt INT(10) NOT NULL DEFAULT 0,
 	sessionID varchar(33),
+	token varchar(50),
     PRIMARY KEY (id)
 );";
 if( !@mysqli_query($link,$sql_create_tb)) {
