@@ -6,6 +6,8 @@
  * Time: 14:14
  */
 
+date_default_timezone_set("Europe/Dublin");
+
 // Testing function: output to console
 function debug_to_console( $data ) {
     $output = $data;

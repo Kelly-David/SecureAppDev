@@ -42,11 +42,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     // Email is in the db - generate
                     $token = md5(uniqid($email_err, true));
-                    $setToken = "UPDATE `user` SET token = ?";
+                    $setToken = "UPDATE `user` SET token = ?, tokenTime = ? WHERE email = ?";
                     if($stmt = mysqli_prepare($link, $setToken)) {
 
-                        mysqli_stmt_bind_param($stmt, "s", $param_token);
+                        mysqli_stmt_bind_param($stmt, "sss", $param_token, $param_lastLogin, $param_email);
                         $param_token = $token;
+                        // Time
+                        $param_lastLogin = getTime();
+                        // Set email
+                        $param_email = $email;
                         if(mysqli_stmt_execute($stmt)){
 
                         } else {
