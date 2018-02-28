@@ -11,12 +11,15 @@ require_once("includes/utils.php");
 
 session_start();
 
-$token = $email = $email_err = "";
+$token = $email = $password = $dob = $email_err = "";
+$token_err = false;
 
 if($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if(isset($_POST['token'])) {
         $token = mysqli_real_escape_string($link, $_POST['token']);
+        $email = mysqli_real_escape_string($link, $_POST['email']);
+        $dob = mysqli_real_escape_string($link, $_POST['dob']);
 
         // Prep SQL statement
         $sql = "SELECT token, tokenTime FROM `user` WHERE token = ?";
@@ -26,16 +29,36 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             if (mysqli_stmt_execute($stmt)) {
                 mysqli_stmt_store_result($stmt);
                 if (mysqli_stmt_num_rows($stmt) == 1) {
-                    // Token is in the db TODO - check timestamp
+                    // Token is in the db
                     mysqli_stmt_bind_result($stmt, $r_token, $r_tokenTime);
                     if (mysqli_stmt_fetch($stmt)) {
-
+                        /**  */
                         echo "<p> Token is in the database</p>";
                         echo "<p> $r_token";
                         echo "<p> $r_tokenTime";
-
                         if((getTime() - strtotime($r_tokenTime)) > 300) {
                             echo "<p> Token invalid";
+                            $token_err = true;
+                        }
+                        if(!$token_err) {
+                            $sql = "UPDATE `user` SET password = ? WHERE token = ?";
+                            if($stmt = mysqli_prepare($link, $sql)) {
+                                mysqli_stmt_bind_param($stmt, "ss", $p_password, $p_token);
+                                $p_token = $token;
+                                $options = ['cost' => 11, 'salt' => mcrypt_create_iv(22, MCRYPT_DEV_URANDOM),];
+                                $p_password = password_hash($password, PASSWORD_BCRYPT, $options);
+                                if(mysqli_stmt_execute($stmt)){
+                                    /** Log to file */
+                                    $file = fopen('test.txt','a+') or die("Can't open file.");
+                                    $now = getTime();
+                                    debug_to_console($now);
+                                    $txt = $now . " [PASSWORD_RESET] " . "User: " . $email . "\n";
+                                    fwrite($file, $txt);
+                                    fclose($file);
+                                } else {
+                                    echo "Please try again later.";
+                                }
+                            }
                         }
 
                     }
