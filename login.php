@@ -104,6 +104,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                                     } else {
                                         echo "Please try again later.";
                                     }
+                                    logger("LOGIN", $email);
                                     session_start();
                                     $_SESSION['username'] = $email;
                                     header("location: user.php");

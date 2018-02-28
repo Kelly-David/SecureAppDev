@@ -60,15 +60,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                                     $param_token = $token;
 
                                     if (mysqli_stmt_execute($stmt)) {
-
-                                        /** Log to file */
-                                        $file = fopen('test.txt', 'a+') or die("Can't open file.");
-                                        $now = getTime();
-                                        debug_to_console($now);
-                                        $txt = $now . " [PASSWORD_RESET] " . "User: " . $email . "\n";
-                                        fwrite($file, $txt);
-                                        fclose($file);
-
+                                        logger("PASSWORD_RESET", $email);
                                     } else {
                                         echo "Oops! Something went wrong. Please try again later.";
                                     }

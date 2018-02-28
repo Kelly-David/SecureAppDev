@@ -7,8 +7,10 @@
  */
 date_default_timezone_set("Europe/Dublin");
 
-// Testing function: output to console
-function debug_to_console( $data ) {
+/**
+ * @param $data
+ */
+function debug_to_console($data ) {
     $output = $data;
     if ( is_array( $output ) )
         $output = implode( ',', $output);
@@ -17,7 +19,9 @@ function debug_to_console( $data ) {
 }
 
 
-// Get time
+/**
+ * @return DateTime|string
+ */
 function getTime() {
     // Time
     $server_time = new DateTime();
@@ -25,6 +29,11 @@ function getTime() {
     return $server_time;
 }
 
+/**
+ * @param $email
+ * @param $link
+ * @return bool
+ */
 function emailRegistered($email, $link) {
     $valid = false;
     $sql = "SELECT email FROM `user` WHERE email = ?";
@@ -42,6 +51,10 @@ function emailRegistered($email, $link) {
     return $valid;
 }
 
+/**
+ * @param $email
+ * @return bool
+ */
 function emailIsValid($email) {
     $valid= false;
     if(filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -50,11 +63,17 @@ function emailIsValid($email) {
     return $valid;
 }
 
+/**
+ * @param $param
+ * @param $case
+ * @param $link
+ * @return bool
+ */
 function validate($param, $case, $link) {
     $valid = false;
     switch ($case) {
         case "email":
-            if(emailRegistered($param, $link) && emailIsValid($param)) { $valid = true;}
+            if(emailRegistered($param, $link) && emailIsValid($param)) { $valid = true; }
             break;
         case "password":
 
@@ -63,4 +82,12 @@ function validate($param, $case, $link) {
             break;
     }
     return $valid;
+}
+
+function logger($event, $user ) {
+    $file = fopen('test.txt', 'a+') or die("Can't open file.");
+    $now = getTime();
+    $txt = $now . " [". $event ."] " . "User: " . $user . "\n";
+    fwrite($file, $txt);
+    fclose($file);
 }

@@ -89,12 +89,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if(mysqli_stmt_execute($stmt)){
 
-                $file = fopen('test.txt','a+') or die("Can't open file.");
-                $now = getTime();
-                debug_to_console($now);
-                $txt = $now . " [REGISTER] " . "User: " . $email . "\n";
-                fwrite($file, $txt);
-                fclose($file);
+                logger("REGISTER", $email);
 
                 // User created - redirect to login
                 header("location: login.php" );
