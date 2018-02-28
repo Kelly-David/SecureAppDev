@@ -75,7 +75,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $sql = "INSERT INTO user (`username`, `password`, `email`, `dob`) VALUES (?, ?, ?, ?)";
 
-        if($stmt = mysqli_prepare($link, $sql)) {
+            if($stmt = mysqli_prepare($link, $sql)) {
 
             mysqli_stmt_bind_param($stmt, "ssss", $p_username, $p_password, $p_email, $p_dob);
             $p_username = $user;
@@ -104,7 +104,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         }
     }
-
 
 
 } // POST REQ END

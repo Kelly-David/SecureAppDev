@@ -20,6 +20,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         $token = mysqli_real_escape_string($link, $_POST['token']);
         $email = mysqli_real_escape_string($link, $_POST['email']);
         $dob = mysqli_real_escape_string($link, $_POST['dob']);
+        $password = mysqli_real_escape_string($link, $_POST['password']);
 
         // Prep SQL statement
         $sql = "SELECT token, tokenTime FROM `user` WHERE token = ?";
@@ -41,13 +42,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                             $token_err = true;
                         }
                         if(!$token_err) {
-                            $sql = "UPDATE `user` SET password = ? WHERE token = ?";
-                            if($stmt = mysqli_prepare($link, $sql)) {
-                                mysqli_stmt_bind_param($stmt, "ss", $p_password, $p_token);
-                                $p_token = $token;
-                                $options = ['cost' => 11, 'salt' => mcrypt_create_iv(22, MCRYPT_DEV_URANDOM),];
-                                $p_password = password_hash($password, PASSWORD_BCRYPT, $options);
+
+                            $updatepw = "UPDATE user SET password = ? WHERE token = ?";
+                            if($stmt = mysqli_prepare($link, $updatepw)) {
+                                mysqli_stmt_bind_param($stmt, "ss", $param_password, $param_token);
+
+                                $param_password = password_hash($password, PASSWORD_DEFAULT);
+                                $param_token = $token;
+
                                 if(mysqli_stmt_execute($stmt)){
+
                                     /** Log to file */
                                     $file = fopen('test.txt','a+') or die("Can't open file.");
                                     $now = getTime();
@@ -55,10 +59,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                                     $txt = $now . " [PASSWORD_RESET] " . "User: " . $email . "\n";
                                     fwrite($file, $txt);
                                     fclose($file);
+
                                 } else {
-                                    echo "Please try again later.";
+                                    echo "Oops! Something went wrong. Please try again later.";
                                 }
                             }
+                            mysqli_stmt_close($stmt);
+                            mysqli_close($link);
+                            // Redirect to logout
+                            header("location: logout.php");
                         }
 
                     }

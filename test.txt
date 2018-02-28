@@ -10,3 +10,8 @@
 2018-02-28 16:25:07 [REGISTER] User: davidkelly.tlf@gmail.com
 2018-02-28 16:30:26 [PASSWORD_RESET] User: davidkelly.tlf@gmail.com
 2018-02-28 16:30:59 [PASSWORD_RESET] User: davidkelly.tlf@gmail.com
+2018-02-28 16:41:48 [PASSWORD_RESET] User: davidkelly.tlf@gmail.com
+2018-02-28 16:42:40 [REGISTER] User: d@d.com
+2018-02-28 16:43:03 [PASSWORD_RESET] User: d@d.com
+2018-02-28 16:54:15 [REGISTER] User: d@d.d
+2018-02-28 16:57:13 [PASSWORD_RESET] User: d@d.d
