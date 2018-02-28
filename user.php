@@ -20,5 +20,11 @@ if(!$_SESSION['username']) {
         Logout
     </button>
 </form>
+
+<form action="forgotpassword.php">
+    <button>
+        Logout
+    </button>
+</form>
 </body>
 </html>

@@ -40,7 +40,8 @@
                         </div>
                         <br>
                         <small>
-                            <a href="register.php">New user?</a>
+                            <a href="register.php">New user?</a><br>
+                            <a href="forgotpassword.php">Password Reset</a>
                         </small>
                         <button type="submit" id="submit" class="btn btn-primary btn-sm float-right"><i class="fa fa-sign-in" aria-hidden="true"></i> Submit</button>
                     </form>

@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="61f30463-aa41-4f4d-9992-9fb46a11eb73" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/logout.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/forgotpassword.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test.txt" afterPath="$PROJECT_DIR$/test.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/includes/loginForm.php" afterPath="$PROJECT_DIR$/includes/loginForm.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/user.php" afterPath="$PROJECT_DIR$/user.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -30,8 +30,8 @@
       <file leaf-file-name="register.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/register.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-505">
-              <caret line="97" column="0" lean-forward="false" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
+            <state relative-caret-position="120">
+              <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="9" selection-end-column="35" />
               <folding>
                 <element signature="e#6#87#0#PHP" expanded="true" />
                 <marker date="1519070105807" expanded="true" signature="917:957" ph="SELECT email... user" />
@@ -56,22 +56,25 @@
       <file leaf-file-name="user.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/user.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="24" column="0" lean-forward="true" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+            <state relative-caret-position="345">
+              <caret line="23" column="24" lean-forward="true" selection-start-line="23" selection-start-column="24" selection-end-line="23" selection-end-column="24" />
               <folding>
-                <marker date="1519821915899" expanded="true" signature="180:338" ph="..." />
-                <marker date="1519821915899" expanded="true" signature="201:330" ph="..." />
+                <marker date="1519822548394" expanded="true" signature="180:424" ph="..." />
+                <marker date="1519822548394" expanded="true" signature="201:416" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="logout.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/logout.php">
+      <file leaf-file-name="forgotpassword.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/forgotpassword.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="25" column="0" lean-forward="true" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="480">
+              <caret line="37" column="31" lean-forward="false" selection-start-line="37" selection-start-column="31" selection-end-line="37" selection-end-column="31" />
+              <folding>
+                <marker date="1519824456354" expanded="true" signature="398:418" ph="..." />
+                <marker date="1519824456354" expanded="true" signature="504:664" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -79,14 +82,26 @@
       <file leaf-file-name="login.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/login.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="451">
-              <caret line="107" column="67" lean-forward="true" selection-start-line="106" selection-start-column="36" selection-end-line="107" selection-end-column="67" />
+            <state relative-caret-position="564">
+              <caret line="163" column="32" lean-forward="true" selection-start-line="163" selection-start-column="32" selection-end-line="163" selection-end-column="32" />
               <folding>
                 <marker date="1519052802592" expanded="true" signature="833:873" ph="SELECT email... user" />
                 <marker date="1519052802592" expanded="true" signature="1511:1585" ph="SELECT usern... user" />
                 <marker date="1519052802592" expanded="true" signature="2637:2695" ph="UPDATE user " />
                 <marker date="1519052802592" expanded="true" signature="3752:3808" ph="UPDATE user " />
                 <marker date="1519052802592" expanded="true" signature="4497:4593" ph="UPDATE clien... " />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="loginForm.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/includes/loginForm.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="555">
+              <caret line="42" column="68" lean-forward="false" selection-start-line="42" selection-start-column="68" selection-end-line="42" selection-end-column="68" />
+              <folding>
+                <element signature="n#style#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -140,19 +155,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mysql.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/db/mysql.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="645">
-              <caret line="48" column="24" lean-forward="true" selection-start-line="48" selection-start-column="24" selection-end-line="48" selection-end-column="24" />
-              <folding>
-                <marker date="1519050803081" expanded="true" signature="1050:1353" ph="CREATE TABLE... user" />
-                <marker date="1519050803081" expanded="true" signature="1483:1630" ph="CREATE TABLE... clientSession" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
@@ -180,14 +182,15 @@
         <option value="$PROJECT_DIR$/db/dbconfig.php" />
         <option value="$PROJECT_DIR$/db/mysql.php" />
         <option value="$PROJECT_DIR$/includes/client.php" />
-        <option value="$PROJECT_DIR$/includes/loginForm.php" />
         <option value="$PROJECT_DIR$/includes/lockout.php" />
         <option value="$PROJECT_DIR$/login.php" />
         <option value="$PROJECT_DIR$/includes/utils.php" />
         <option value="$PROJECT_DIR$/register.php" />
         <option value="$PROJECT_DIR$/test.txt" />
-        <option value="$PROJECT_DIR$/user.php" />
         <option value="$PROJECT_DIR$/logout.php" />
+        <option value="$PROJECT_DIR$/user.php" />
+        <option value="$PROJECT_DIR$/includes/loginForm.php" />
+        <option value="$PROJECT_DIR$/forgotpassword.php" />
       </list>
     </option>
   </component>
@@ -291,12 +294,12 @@
       <workItem from="1518783706155" duration="1437000" />
       <workItem from="1518792066845" duration="6748000" />
       <workItem from="1519045903342" duration="8110000" />
-      <workItem from="1519817312553" duration="1462000" />
+      <workItem from="1519817312553" duration="2438000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="18814000" />
+    <option name="totallyTimeSpent" value="19790000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -351,8 +354,8 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1519821915899" expanded="true" signature="180:338" ph="..." />
-            <marker date="1519821915899" expanded="true" signature="201:330" ph="..." />
+            <marker date="1519822548394" expanded="true" signature="180:424" ph="..." />
+            <marker date="1519822548394" expanded="true" signature="201:416" ph="..." />
           </folding>
         </state>
       </provider>
@@ -633,14 +636,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/includes/loginForm.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="18" column="48" lean-forward="true" selection-start-line="18" selection-start-column="48" selection-end-line="18" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/includes/lockout.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="405">
@@ -681,10 +676,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/test.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/logout.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="25" column="0" lean-forward="true" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/login.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="451">
-          <caret line="107" column="67" lean-forward="true" selection-start-line="106" selection-start-column="36" selection-end-line="107" selection-end-column="67" />
+        <state relative-caret-position="564">
+          <caret line="163" column="32" lean-forward="true" selection-start-line="163" selection-start-column="32" selection-end-line="163" selection-end-column="32" />
           <folding>
             <marker date="1519052802592" expanded="true" signature="833:873" ph="SELECT email... user" />
             <marker date="1519052802592" expanded="true" signature="1511:1585" ph="SELECT usern... user" />
@@ -695,10 +706,31 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/includes/loginForm.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="555">
+          <caret line="42" column="68" lean-forward="false" selection-start-line="42" selection-start-column="68" selection-end-line="42" selection-end-column="68" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/user.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="23" column="24" lean-forward="true" selection-start-line="23" selection-start-column="24" selection-end-line="23" selection-end-column="24" />
+          <folding>
+            <marker date="1519822548394" expanded="true" signature="180:424" ph="..." />
+            <marker date="1519822548394" expanded="true" signature="201:416" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/register.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-505">
-          <caret line="97" column="0" lean-forward="false" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
+        <state relative-caret-position="120">
+          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="9" selection-end-column="35" />
           <folding>
             <element signature="e#6#87#0#PHP" expanded="true" />
             <marker date="1519070105807" expanded="true" signature="917:957" ph="SELECT email... user" />
@@ -709,30 +741,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test.txt">
+    <entry file="file://$PROJECT_DIR$/forgotpassword.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/user.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="24" column="0" lean-forward="true" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+        <state relative-caret-position="480">
+          <caret line="37" column="31" lean-forward="false" selection-start-line="37" selection-start-column="31" selection-end-line="37" selection-end-column="31" />
           <folding>
-            <marker date="1519821915899" expanded="true" signature="180:338" ph="..." />
-            <marker date="1519821915899" expanded="true" signature="201:330" ph="..." />
+            <marker date="1519824456354" expanded="true" signature="398:418" ph="..." />
+            <marker date="1519824456354" expanded="true" signature="504:664" ph="..." />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/logout.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="25" column="0" lean-forward="true" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
