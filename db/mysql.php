@@ -46,7 +46,7 @@ $sql_create_tb = "CREATE TABLE user(
     password VARCHAR(200),
     email VARCHAR(200),
     dob VARCHAR(100),
-    lastLogin TIMESTAMP,
+    lastLogin TIMESTAMP NOT NULL DEFAULT now(),
     state BOOLEAN NOT NULL DEFAULT 1,
     attempt INT(10) NOT NULL DEFAULT 0,
 	sessionID varchar(33),

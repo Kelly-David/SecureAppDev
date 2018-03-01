@@ -56,7 +56,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             if(mysqli_stmt_execute($stmt)){
 
                 logger("REGISTER", $email);
-
                 // User created - redirect to login
                 header("location: login.php" );
 

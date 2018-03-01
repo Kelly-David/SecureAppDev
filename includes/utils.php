@@ -31,6 +31,7 @@ function getTime() {
 }
 
 /**
+ * returns true if email is in the db
  * @param $email
  * @param $link
  * @return bool
@@ -64,6 +65,10 @@ function emailIsValid($email) {
     return $valid;
 }
 
+/**
+ * @param $pw
+ * @return bool
+ */
 function passwordRegex($pw) {
     $valid = false;
     if(preg_match('/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/', $pw)) {
@@ -99,6 +104,10 @@ function validate($param, $case, $link = "") {
     return $valid;
 }
 
+/**
+ * @param $event
+ * @param $user
+ */
 function logger($event, $user ) {
     $file = fopen('test.txt', 'a+') or die("Can't open file.");
     $now = getTime();
@@ -116,30 +125,43 @@ function logger($event, $user ) {
  * @param string $action what to do with this? e for encrypt, d for decrypt
  * @return bool
  */
-function _crypt( $string, $action = 'e' ): bool {
-
+function _crypt( $string, $action = 'e' ) {
     $secret_key = 'my_simple_secret_key';
     $secret_iv = 'my_simple_secret_iv';
-
     $output = false;
     $encrypt_method = "AES-256-CBC";
     $key = hash( 'sha256', $secret_key );
     $iv = substr( hash( 'sha256', $secret_iv ), 0, 16 );
-
     if( $action == 'e' ) {
         $output = base64_encode( openssl_encrypt( $string, $encrypt_method, $key, 0, $iv ) );
     }
     else if( $action == 'd' ){
         $output = openssl_decrypt( base64_decode( $string ), $encrypt_method, $key, 0, $iv );
     }
-
     return $output;
 }
 
 /**
+ * password_hash randomly generates a salt for each password
  * @param $password
  * @return string
  */
-function _hash($password): string {
+function _hash($password) {
     return password_hash($password, PASSWORD_DEFAULT);
+}
+
+/**
+ * @param $client
+ * @param $link
+ * @param $param
+ * @return string
+ */
+function clientAttemptQuery($client, $link, $param = "any") {
+    $session_sql = "UPDATE clientSession SET Counter = Counter + 1, Tstamp = NOW() WHERE SessionID = '$client'";
+    $result = mysqli_query($link,$session_sql);
+    if (!$result) {
+        die('SQL error. Could not query');
+    }
+    return "Email "  . htmlspecialchars($param, 3) . " and password combination invalid";
+
 }
