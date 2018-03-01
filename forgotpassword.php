@@ -47,7 +47,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                             echo "<p> $r_token";
                             echo "<p> $r_tokenTime";
                             if ((getTime() - strtotime($r_tokenTime)) > 300) {
-                                echo "<p> Token invalid";
+                                echo "<p>Token invalid</p>";
                                 $token_err = true;
                             }
                             if (!$token_err) {
@@ -113,7 +113,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                             $param_email = $email;
                             if (mysqli_stmt_execute($stmt)) {
                                 // Success
-                                echo "<p> Token: $token </p> ";
+                                echo "<div class='alert alert-info text-center' role='alert'>Password reset token: $token</div>";
                                 require_once('includes/passwordTokenReset.php');
                             } else {
                                 echo "Please try again later.";
