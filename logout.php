@@ -6,6 +6,14 @@
  * Time: 12:45
  */
 
+require_once("includes/utils.php");
+
+session_start();
+
+$email = $_SESSION['username'];
+logger("LOGOUT", $email);
+$email = "";
+
 session_start();
 if(isset($_COOKIE[session_name()])) {
     setcookie(session_name(),'',time()-3600);

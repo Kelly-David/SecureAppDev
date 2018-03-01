@@ -27,51 +27,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     debug_to_console( $email );
     debug_to_console( $dob );
 
-    // Validate the email
-    if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-
-        $key = "ASKSDFNSDFKEISDJAHDLDSDF1235UUUiidfsdf";
-
-        // Prep SQL statement
-        $sql = "SELECT email FROM `user` WHERE email = ?";
-
-        if($stmt = mysqli_prepare($link, $sql)) {
-
-            mysqli_stmt_bind_param($stmt, "s", $param_email);
-
-            $param_email = $email;
-
-            if(mysqli_stmt_execute($stmt)){
-                mysqli_stmt_store_result($stmt);
-
-                if(mysqli_stmt_num_rows($stmt) == 1){
-
-                    $email_err = "Email registered in the system. Re-enter or <a href='login.php'>login</a>.";
-
-//                    mysqli_stmt_bind_result($stmt, $retrieved_email);
-//                    if(mysqli_stmt_fetch($stmt)) {
-//                        //Debugging
-//                        debug_to_console( $retrieved_email );
-//                        if($param_email == $retrieved_email) {
-//                            $email_err = "Email registered in the system. Re-enter or <a href='login.php'>login</a>.";
-//                        }
-//                    }
-                }
-            }
-            // Close statement
-            mysqli_stmt_close($stmt);
-        }
-
-    }
-    else {
-        $email_err = "Email invalid";
+    // Validate the email - if return true email is valid and registered in the system
+    if(validate($email, "email", $link)){
+        $email_err = "Invalid email: " . htmlspecialchars($email, 3) . ". Re-enter or <a href='login.php'>login</a>.";
     }
 
     if (!empty($password) && !(empty($user)) && !empty($email) && !empty($dob) && empty($email_err)) {
-
-        $key = "ASKSDFNSDFKEISDJAHDLDSDF1235UUUiidfsdf";
-
-        debug_to_console($key);
 
         $sql = "INSERT INTO user (`username`, `password`, `email`, `dob`) VALUES (?, ?, ?, ?)";
 

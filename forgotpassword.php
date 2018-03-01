@@ -68,7 +68,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                                 mysqli_stmt_close($stmt);
                                 mysqli_close($link);
                                 // Redirect to logout
-                                header("location: logout.php");
+                                header("location: login.php");
                             }
 
                         }

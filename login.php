@@ -104,7 +104,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                                     } else {
                                         echo "Please try again later.";
                                     }
-                                    logger("LOGIN", $email);
+                                    logger("USER AUTH", $email);
                                     session_start();
                                     $_SESSION['username'] = $email;
                                     header("location: user.php");
@@ -123,6 +123,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                                     $param_username = $email;
 
                                     if(mysqli_stmt_execute($stmt)){
+                                        logger("FAILED AUTH", $email);
 
                                     } else {
 
