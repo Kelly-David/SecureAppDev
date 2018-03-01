@@ -63,20 +63,34 @@ function emailIsValid($email) {
     return $valid;
 }
 
+function passwordRegex($pw) {
+    $valid = false;
+    if(preg_match('/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/', $pw)) {
+        $valid = true;
+    }
+    return $valid;
+}
+
 /**
  * @param $param
  * @param $case
  * @param $link
  * @return bool
  */
-function validate($param, $case, $link) {
+function validate($param, $case, $link = "") {
     $valid = false;
     switch ($case) {
         case "email":
             if(emailRegistered($param, $link) && emailIsValid($param)) { $valid = true; }
             break;
         case "password":
-
+            if(passwordRegex($param)) { $valid = true; }
+            break;
+        case "user":
+            if($param != "") { $valid = true; }
+            break;
+        case "dob":
+            if($param != "") { $valid = true; }
             break;
         default:
             break;

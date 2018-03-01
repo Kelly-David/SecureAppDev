@@ -21,18 +21,27 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = mysqli_real_escape_string($link,$_POST['email']);
     $dob = mysqli_real_escape_string($link,$_POST['dob']);
 
-    // Testing
-    debug_to_console( $user );
-    debug_to_console( $password );
-    debug_to_console( $email );
-    debug_to_console( $dob );
+    //Validate username
+    if(!validate($user, "user")) {
+        $user_err = "Username error. Re-enter.";
+    }
 
     // Validate the email - if return true email is valid and registered in the system
     if(validate($email, "email", $link)){
         $email_err = "Invalid email: " . htmlspecialchars($email, 3) . ". Re-enter or <a href='login.php'>login</a>.";
     }
 
-    if (!empty($password) && !(empty($user)) && !empty($email) && !empty($dob) && empty($email_err)) {
+    //Validate dob
+    if(!validate($dob, "dob")) {
+        $dob_err = "Date of birth error. Re-enter.";
+    }
+
+    // Validate the password - if false password is not the correct format
+    if(!validate($password, "password")) {
+        $password_err = "Invalid password. Re-enter.";
+    }
+
+    if (empty($user_err) && empty($email_err) && empty($dob_err) && empty($password_err)) {
 
         $sql = "INSERT INTO user (`username`, `password`, `email`, `dob`) VALUES (?, ?, ?, ?)";
 
@@ -40,11 +49,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
             mysqli_stmt_bind_param($stmt, "ssss", $p_username, $p_password, $p_email, $p_dob);
             $p_username = $user;
-            $options = [
-                'cost' => 11,
-                'salt' => mcrypt_create_iv(22, MCRYPT_DEV_URANDOM),
-            ];
-            $p_password = password_hash($password, PASSWORD_BCRYPT, $options);
+            $p_password = password_hash($password, PASSWORD_DEFAULT);
             $p_email = $email;
             $p_dob = $dob;
 
