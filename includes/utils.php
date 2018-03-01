@@ -5,6 +5,7 @@
  * Date: 16/02/2018
  * Time: 14:14
  */
+
 date_default_timezone_set("Europe/Dublin");
 
 /**
@@ -115,7 +116,7 @@ function logger($event, $user ) {
  * @param string $action what to do with this? e for encrypt, d for decrypt
  * @return bool
  */
-function _crypt( $string, $action = 'e' ) {
+function _crypt( $string, $action = 'e' ): bool {
 
     $secret_key = 'my_simple_secret_key';
     $secret_iv = 'my_simple_secret_iv';
@@ -133,4 +134,12 @@ function _crypt( $string, $action = 'e' ) {
     }
 
     return $output;
+}
+
+/**
+ * @param $password
+ * @return string
+ */
+function _hash($password): string {
+    return password_hash($password, PASSWORD_DEFAULT);
 }

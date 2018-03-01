@@ -49,7 +49,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
             mysqli_stmt_bind_param($stmt, "ssss", $p_username, $p_password, $p_email, $p_dob);
             $p_username = $user;
-            $p_password = password_hash($password, PASSWORD_DEFAULT);
+            $p_password = _hash($password);
             $p_email = $email;
             $p_dob = $dob;
 
