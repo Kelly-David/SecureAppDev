@@ -11,7 +11,7 @@ require_once("includes/utils.php");
 
 session_start();
 
-$token = $email = $password = $password_err = $password_repeat = $dob = $email_err = "";
+$token = $email = $password = $password_err = $password_repeat = $dob = $dob_err = $email_err = "";
 $token_err = false;
 
 if($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -52,11 +52,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                             }
                             if (!$token_err) {
 
-                                $updatepw = "UPDATE user SET password = ? WHERE token = ?";
+                                $updatepw = "UPDATE user SET password = ?, token = ? WHERE token = ?";
                                 if ($stmt = mysqli_prepare($link, $updatepw)) {
-                                    mysqli_stmt_bind_param($stmt, "ss", $param_password, $param_token);
-
+                                    mysqli_stmt_bind_param($stmt, "sss", $param_password, $param_token_reset, $param_token);
                                     $param_password = password_hash($password, PASSWORD_DEFAULT);
+                                    $param_token_reset = "";
                                     $param_token = $token;
 
                                     if (mysqli_stmt_execute($stmt)) {
@@ -113,24 +113,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                             $param_email = $email;
                             if (mysqli_stmt_execute($stmt)) {
                                 // Success
-                                echo "
-                                    <p>
-                                    Token: $token
-                                    <form action='' method='POST'>
-                                    <label>Email: </label>
-                                    <input type='text' name='email'>
-                                    <label>Dat of Birth: </label>
-                                    <input type='date' name='dob'>
-                                    <label>Token: </label>
-                                    <input type='text' name='token'>
-                                    <label>New Password: </label>
-                                    <input type='password' name='password'>
-                                    <label>Repeat Password: </label>
-                                    <input type='password' name='password_repeat'>
-                                    <button type='submit'>Reset</button>
-                                    </form>
-                                    </p>
-                                    ";
+                                echo "<p> Token: $token </p> ";
+                                require_once('includes/passwordTokenReset.php');
                             } else {
                                 echo "Please try again later.";
                             }
