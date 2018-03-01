@@ -24,7 +24,7 @@ function debug_to_console($data ) {
  * @return DateTime|string
  */
 function getTime() {
-    // Time
+    date_default_timezone_set("Europe/Dublin");
     $server_time = new DateTime();
     $server_time = $server_time->format('Y-m-d H:i:s');
     return $server_time;

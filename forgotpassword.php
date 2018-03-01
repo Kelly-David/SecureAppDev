@@ -12,7 +12,7 @@ require_once("includes/utils.php");
 session_start();
 
 $token = $email = $password = $password_err = $password_repeat = $dob = $dob_err = $email_err = "";
-$token_err = false;
+$token_err = "";
 
 if($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -42,15 +42,18 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                         // Token is in the db
                         mysqli_stmt_bind_result($stmt, $r_token, $r_tokenTime);
                         if (mysqli_stmt_fetch($stmt)) {
-                            /**  */
+                            $currentTime = getTime();
+                            $differenceInSeconds = strtotime($currentTime) - strtotime($r_tokenTime);
+
+                            /** Testing TODO remove  */
                             echo "<p> Token is in the database</p>";
                             echo "<p> $r_token";
                             echo "<p> $r_tokenTime";
-                            if ((getTime() - strtotime($r_tokenTime)) > 300) {
-                                echo "<p>Token invalid</p>";
-                                $token_err = true;
+                            if ($differenceInSeconds >= 300) {
+                                echo "<p>Token expired</p>";
+                                $token_err = "Expired token";
                             }
-                            if (!$token_err) {
+                            if(empty($token_err)) {
 
                                 $updatepw = "UPDATE user SET password = ?, token = ? WHERE token = ?";
                                 if ($stmt = mysqli_prepare($link, $updatepw)) {
@@ -61,19 +64,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
                                     if (mysqli_stmt_execute($stmt)) {
                                         logger("PASSWORD_RESET", $email);
+                                        mysqli_stmt_close($stmt);
+                                        mysqli_close($link);
+                                        // Redirect to logout
+                                        //header("location: login.php");
                                     } else {
                                         echo "Oops! Something went wrong. Please try again later.";
                                     }
                                 }
-                                mysqli_stmt_close($stmt);
-                                mysqli_close($link);
-                                // Redirect to logout
-                                header("location: login.php");
                             }
-
                         }
-
-
                     } else {
                         echo "<p>Invalid token</p>";
                     }
