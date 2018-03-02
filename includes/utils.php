@@ -181,29 +181,28 @@ function clientAttemptQuery($client, $link, $param = "any") {
  * @internal param $ $
  */
 function passwordComplexity($password, $username, $email) {
+
     $valid = true;
-    $pw_contains_email = strpos($password, $email);
-    debug_to_console("pw_contains_email: " . $pw_contains_email);
+
+    // If the password contains the entire email
+    if (strpos($password, $email) !== false) {
+        $valid =  false;
+    }
 
     // Split the username by delimiters
     $username_keywords = preg_split("/[\s,]+/", $username);
 
     foreach ($username_keywords as $key) {
-        debug_to_console("key: " . $key);
-        // Ignore any token that's less than 3 characters
-        if (strlen($key) >= 3) {
+        // Tokens greater than 3 characters
+        if (strlen($key) > 3) {
+
             // Check the token is not a substring of the password
-            if (strpos($password, $key) >=0) {
-                debug_to_console("False key contain email: " . $valid);
+            if (strpos($password, $key) !== false ) {
                 $valid = false;
             }
         }
     }
-    // Check the email is not a substring of the password
-    if($pw_contains_email >=0) {
-        debug_to_console("False contain email: " . $valid);
-        $valid = false;
-    }
+
     // Does the password match the regex
     if(!passwordRegex($password)) {
         debug_to_console("False regex: " . $valid);
