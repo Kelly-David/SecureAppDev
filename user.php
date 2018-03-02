@@ -67,7 +67,7 @@ echo "Email: " . $email;
 echo "<br>";
 echo "Date of Birth: " . $dob;
 echo "</p>
-      <form action='forgotpassword.php' method='post'>
+      <form action='logout.php' method='post'>
       <br>
       <button type='submit' id='submit' class='btn btn-primary btn-sm float-right'><i class='fa fa-sign-in' aria-hidden='true'></i> Logout</button>
       </form>

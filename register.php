@@ -37,7 +37,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Validate the password - if false password is not the correct format
-    if(!validate($password, "password")) {
+    if(!passwordComplexity($password, $user, $email)) {
         $password_err = "Invalid password. Re-enter.";
     }
 
@@ -57,7 +57,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 logger("REGISTER", $email);
                 // User created - redirect to login
-                header("location: login.php" );
+                //header("location: login.php" );
 
             } else {
                 echo "Please try again later.";

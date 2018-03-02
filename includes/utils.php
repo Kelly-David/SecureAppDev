@@ -66,12 +66,14 @@ function emailIsValid($email) {
 }
 
 /**
+ * Password must satisfy 3 of the following rules https://technet.microsoft.com/en-us/library/cc786468(v=ws.10).aspx
+ * Regex ref: https://stackoverflow.com/questions/3466850/regular-expression-to-enforce-complex-passwords-matching-3-out-of-4-rules
  * @param $pw
  * @return bool
  */
 function passwordRegex($pw) {
     $valid = false;
-    if(preg_match('/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/', $pw)) {
+    if(preg_match('/^(?:(?=.*[a-z])(?:(?=.*[A-Z])(?=.*[\d\W])|(?=.*\W)(?=.*\d))|(?=.*\W)(?=.*[A-Z])(?=.*\d)).{8,}$/', $pw)) {
         $valid = true;
     }
     return $valid;
@@ -80,17 +82,20 @@ function passwordRegex($pw) {
 /**
  * @param $param
  * @param $case
- * @param $link
+ * @param string $link
+ * @param string $email
+ * @param string $user
  * @return bool
+ * @internal param $valid bool
  */
-function validate($param, $case, $link = "") {
+function validate($param, $case, $link = "", $email = "", $user = "") {
     $valid = false;
     switch ($case) {
         case "email":
             if(emailRegistered($param, $link) && emailIsValid($param)) { $valid = true; }
             break;
         case "password":
-            if(passwordRegex($param)) { $valid = true; }
+            if(passwordComplexity($param, $email, $user )) { $valid = true; }
             break;
         case "user":
             if($param != "") { $valid = true; }
@@ -164,4 +169,45 @@ function clientAttemptQuery($client, $link, $param = "any") {
     }
     return "Email "  . htmlspecialchars($param, 3) . " and password combination invalid";
 
+}
+
+
+/**
+ * Password complexity rules according to https://technet.microsoft.com/en-us/library/cc786468(v=ws.10).aspx
+ * @param $password
+ * @param $username
+ * @param $email
+ * @return bool
+ * @internal param $ $
+ */
+function passwordComplexity($password, $username, $email) {
+    $valid = true;
+    $pw_contains_email = strpos($password, $email);
+    debug_to_console("pw_contains_email: " . $pw_contains_email);
+
+    // Split the username by delimiters
+    $username_keywords = preg_split("/[\s,]+/", $username);
+
+    foreach ($username_keywords as $key) {
+        debug_to_console("key: " . $key);
+        // Ignore any token that's less than 3 characters
+        if (strlen($key) >= 3) {
+            // Check the token is not a substring of the password
+            if (strpos($password, $key) >=0) {
+                debug_to_console("False key contain email: " . $valid);
+                $valid = false;
+            }
+        }
+    }
+    // Check the email is not a substring of the password
+    if($pw_contains_email >=0) {
+        debug_to_console("False contain email: " . $valid);
+        $valid = false;
+    }
+    // Does the password match the regex
+    if(!passwordRegex($password)) {
+        debug_to_console("False regex: " . $valid);
+        $valid = false;
+    }
+    return $valid;
 }

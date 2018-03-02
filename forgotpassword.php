@@ -16,7 +16,7 @@ $token_err = $password_err = $dob_err = $email_err = "";
 
 if($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    if(isset($_POST['token'])) {
+    if(isset($_POST['token']) && $_SESSION['email']) {
 
         $email = $_SESSION['email'];
         $token = mysqli_real_escape_string($link, $_POST['token']);
