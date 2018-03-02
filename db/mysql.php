@@ -42,15 +42,14 @@ if( !@((bool)mysqli_query($link, "USE " . $DB_Param['database'])) ) {
 // Create the user table
 $sql_create_tb = "CREATE TABLE user(
     id INT NOT NULL AUTO_INCREMENT,
-    username VARCHAR(50),
-    password VARCHAR(200),
-    email VARCHAR(200),
-    dob VARCHAR(100),
+    username VARCHAR(255),
+    password VARCHAR(255),
+    email VARCHAR(255),
+    dob VARCHAR(255),
     lastLogin TIMESTAMP NOT NULL DEFAULT now(),
     state BOOLEAN NOT NULL DEFAULT 1,
     attempt INT(10) NOT NULL DEFAULT 0,
-	sessionID varchar(33),
-	token varchar(50),
+	token varchar(255),
 	tokenTime TIMESTAMP,
     PRIMARY KEY (id)
 );";

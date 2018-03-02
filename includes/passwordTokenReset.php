@@ -17,10 +17,10 @@ echo "
 <body>
 <div class='container-fluid'>
     <div class='row' style='margin: 1rem 0 0 0'>
-        <div class='col-lg-2'>
+        <div class='col-lg-3'>
             <p></p>
         </div>
-        <div class='col-lg-8 col-sm-12'>
+        <div class='col-lg-6 col-sm-12'>
             <div class='card'>
                 <div class='card-header'>
                     Password Reset
@@ -28,17 +28,12 @@ echo "
                 <div class='card-body'>
                     <form action='' method='post'>
                         <div class='form-group'>
-                            <label for='email'>Email</label>
-                            <input type='email' class='form-control form-control-sm' id='email' name='email' placeholder='Enter an email' >
-                            <small id='emailAlert' class='form-text text-muted float-right'><?php echo $email_err; ?></small>
-                        </div>
-                        <div class='form-group'>
                             <label for='dob'>Date of Birth</label>
                             <input type='date' class='form-control form-control-sm' id='dob' name='dob' placeholder='Enter dob' >
                             <small id='dobAlert' class='form-text text-muted float-right'><?php echo $dob_err; ?></small>
                         </div>
                         <div class='form-group'>
-                            <label for='dob'>Token</label>
+                            <label for='token'>Token</label>
                             <input type='text' class='form-control form-control-sm' id='token' name='token' placeholder='Enter token' >
                             <small id='tokenAlert' class='form-text text-muted float-right'><?php echo $token_err; ?></small>
                         </div>
