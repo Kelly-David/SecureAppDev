@@ -46,7 +46,7 @@ if ($query->num_rows == 0) {  // New client
         die('Could not query:' . mysql_error());
     } else { // OK
         $counter = ($result->fetch_row()[0]);  // get the counter
-        if ($counter >=3) // 3 login attempts
+        if ($counter > 2) // 3 login attempts
         {
             $sql = "SELECT `Tstamp` FROM `clientSession` WHERE `SessionID` = '$anonClientID'";
             $result = mysqli_query($link,$sql);
@@ -61,10 +61,7 @@ if ($query->num_rows == 0) {  // New client
             $differenceInSeconds = strtotime($currentTime) - strtotime($lastLoginAttemptTime);
             if((int)$differenceInSeconds <= 300) { // 5 minute lockout
                 // Client not permitted to attempt login
-                // Redirect to register view until lockout expires
                 $can_authenticate = false;
-//                header("location: index.php");
-
             } else
             { // Display Login
 

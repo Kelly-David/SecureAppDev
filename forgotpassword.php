@@ -41,10 +41,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         // No errors - continue - validate the token
         if (($password_err . $email_err) == "") {
             // Prep SQL statement
-            $sql = "SELECT token, tokenTime FROM `user` WHERE token = ?";
+            $sql = "SELECT token, tokenTime FROM `user` WHERE token = ? AND dob = ?";
             if ($stmt = mysqli_prepare($link, $sql)) {
-                mysqli_stmt_bind_param($stmt, "s", $param_token);
+                mysqli_stmt_bind_param($stmt, "ss", $param_token, $param_dob);
                 $param_token = $token;
+                $param_dob = $dob;
                 if (mysqli_stmt_execute($stmt)) {
                     mysqli_stmt_store_result($stmt);
                     if (mysqli_stmt_num_rows($stmt) == 1) {
@@ -79,12 +80,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                             }
                         }
                     } else {
-                        echo "<p>Invalid token</p>";
+                        // Token is invalid
+                        $token_err = "Invalid parameters";
+                        echo "<div class='alert alert-danger text-center' role='alert'>$token_err</div>";
                     }
                 }
             }
         }
-
     }
     else {
         // POST param
