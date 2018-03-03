@@ -35,12 +35,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         $sql = "SELECT username, password, lastLogin, attempt  FROM `user` WHERE email = ? ";
         if($stmt = mysqli_prepare($link, $sql)) {
             mysqli_stmt_bind_param($stmt, "s", $param_email);
-            $param_email = $email;
+            $param_email = _crypt($email);
             if (mysqli_stmt_execute($stmt)) {
                 mysqli_stmt_store_result($stmt);
                 if ((mysqli_stmt_num_rows($stmt) == 1)) {
                     mysqli_stmt_bind_result($stmt, $myusername, $hashed_password, $llogin, $att);
                     if (mysqli_stmt_fetch($stmt)) {
+                        $att = $att;
                         $time = strtotime($llogin);
                         $current_time = getTime();
                         // Check the lockout time and attempts
@@ -56,7 +57,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                                     mysqli_stmt_bind_param($stmt, "sss", $param_lastLogin, $param_attempt, $param_username);
                                     $param_lastLogin = getTime();
                                     $param_attempt = 0;
-                                    $param_username = $email;
+                                    $param_username = _crypt($email);
                                     if(mysqli_stmt_execute($stmt)){
                                         logger("LOGIN", $email, "login.php", "SUCCESS");
                                         session_start();
@@ -76,7 +77,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                                     $user_sql = "UPDATE user SET attempt = attempt + 1 WHERE email = ?";
                                     if($stmt = mysqli_prepare($link, $user_sql)) {
                                         mysqli_stmt_bind_param($stmt, "s", $param_username);
-                                        $param_username = $email;
+                                        $param_username = _crypt($email);
                                         if(mysqli_stmt_execute($stmt)){
                                             logger("LOGIN", $email, "login.php", "DENY");
                                         } else {

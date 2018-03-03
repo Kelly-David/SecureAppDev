@@ -6,6 +6,7 @@
  * Time: 13:46
  */
 require_once ("db/dbconfig.php");
+require_once ("includes/utils.php");
 
 session_start();
 
@@ -22,7 +23,7 @@ else {
     $sql = "SELECT username, dob FROM `user` WHERE email = ?";
     if ($stmt = mysqli_prepare($link, $sql)) {
         mysqli_stmt_bind_param($stmt, "s", $param_email);
-        $param_email = $email;
+        $param_email = _crypt($email);
         if (mysqli_stmt_execute($stmt)) {
 
             mysqli_stmt_store_result($stmt);
@@ -32,8 +33,8 @@ else {
                 mysqli_stmt_bind_result($stmt, $r_username, $r_dob);
 
                 if (mysqli_stmt_fetch($stmt)) {
-                    $username = htmlspecialchars($r_username, 3);
-                    $dob = htmlspecialchars($r_dob, 3);
+                    $username = htmlspecialchars(_crypt($r_username, 'd'), 3);
+                    $dob = htmlspecialchars(_crypt($r_dob, 'd'), 3);
                 }
             }
         }
