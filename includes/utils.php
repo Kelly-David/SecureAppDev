@@ -47,9 +47,38 @@ function emailRegistered($email, $link) {
                 // Email exists in the db
                 $valid = true;
             }
+        } else {
+            logger("QUERY ERROR", $email, "utils.php", "EXCEPTION");
         }
     }
     return $valid;
+}
+
+/**
+ * Returns username of associated email
+ * @param $email
+ * @param $link
+ * @return bool|string
+ */
+function getUser($email, $link) {
+    $username = "";
+    $sql = "SELECT username FROM `user` WHERE email = ?";
+    if ($stmt = mysqli_prepare($link, $sql)) {
+        mysqli_stmt_bind_param($stmt, "s", $param_email);
+        $param_email = _crypt($email);
+        if (mysqli_stmt_execute($stmt)) {
+            mysqli_stmt_store_result($stmt);
+            if (mysqli_stmt_num_rows($stmt) == 1) {
+                mysqli_stmt_bind_result($stmt, $r_username);
+                if (mysqli_stmt_fetch($stmt)) {
+                    $username = _crypt($r_username, 'd');
+                }
+            }
+        } else {
+            logger("QUERY ERROR", $email, "utils.php", "EXCEPTION");
+        }
+    }
+    return $username;
 }
 
 /**
@@ -168,6 +197,7 @@ function clientAttemptQuery($client, $link, $param = "any") {
     $session_sql = "UPDATE clientSession SET Counter = Counter + 1, Tstamp = NOW() WHERE SessionID = '$client'";
     $result = mysqli_query($link,$session_sql);
     if (!$result) {
+        logger("QUERY ERROR", $client, "utils.php", "EXCEPTION");
         die('SQL error. Could not query');
     }
     return "Email "  . htmlspecialchars($param, 3) . " and password combination invalid";

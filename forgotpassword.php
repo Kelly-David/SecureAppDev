@@ -11,8 +11,8 @@ require_once("includes/utils.php");
 
 session_start();
 
-$token = $email = $password  = $password_repeat = $dob = "";
-$token_err = $password_err = $dob_err = $email_err = "";
+$token = $email = $password  = $password_repeat = $dob = $user = "";
+$token_err = $password_err = $dob_err = $email_err = $user_err = "";
 
 if($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -32,6 +32,18 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
         }
         // Passwords also need to be the correct format TODO
+        if(empty($user = getUser($email, $link))) {
+            $user_err = "Invalid parameters";
+            logger("PASSWORD_RESET", $email, "forgotpassword.php", "DENY");
+            echo "<div class='alert alert-danger text-center' role='alert'>$user_err</div>";
+        } else {
+            // Validate the password - if false password is not the correct format
+            if(!passwordComplexity($password, $user, $email)) {
+                logger("PASSWORD_RESET", $email, "forgotpassword.php", "DENY");
+                $password_err = "Invalid password. Re-enter.";
+                echo "<div class='alert alert-danger text-center' role='alert'>$password_err</div>";
+            }
+        }
 
         // Re-validate the email in the session - just to be sure!
         if(!validate($email, "email", $link)) {
@@ -41,7 +53,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         // No errors - continue - validate the token
-        if (($password_err . $email_err) == "") {
+        if (($password_err . $email_err . $token_err) == "") {
             // Prep SQL statement
             $sql = "SELECT token, tokenTime FROM `user` WHERE token = ? AND dob = ?";
             if ($stmt = mysqli_prepare($link, $sql)) {
@@ -98,7 +110,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         $email = mysqli_real_escape_string($link, $_POST['email']);
         // Validate the email (is a valid email format and exists in the database)
         if(!validate($email, "email", $link)) {
-            logger("INVALID EMAIL", $email, "forgotpassword.php", "DENY");
+            logger("PASSWORD_RESET", $email, "forgotpassword.php", "DENY");
             $email_err = "Invalid email. Re-enter.";
             echo "<div class='alert alert-danger text-center' role='alert'>$email_err</div>";
         }
