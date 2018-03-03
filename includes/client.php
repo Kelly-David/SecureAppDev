@@ -64,7 +64,6 @@ if ($query->num_rows == 0) {  // New client
                 $can_authenticate = false;
             } else
             { // Display Login
-
                 //reset the counter as 3 minutes has passed.
                 $sql = "UPDATE `clientSession` SET `Counter`=0, `Tstamp` = NOW() WHERE `SessionID` = '$anonClientID'";
                 $result = mysqli_query($link,$sql);

@@ -41,7 +41,7 @@ function emailRegistered($email, $link) {
     $sql = "SELECT email FROM `user` WHERE email = ?";
     if ($stmt = mysqli_prepare($link, $sql)) {
         mysqli_stmt_bind_param($stmt, "s", $param_email);
-        $param_email = $email;
+        $param_email = _crypt($email);
         if (mysqli_stmt_execute($stmt)) {
             mysqli_stmt_store_result($stmt);
             if (mysqli_stmt_num_rows($stmt) == 1) {
@@ -110,14 +110,18 @@ function validate($param, $case, $link = "", $email = "", $user = "") {
 }
 
 /**
+ * Who (User), When (Timestamp), Where (Context/ Action being performed), What (Command / Database query), Result (Exception, deny, success) 
  * @param $event
  * @param $user
+ * @param $source
+ * @param $result
+ * @internal param $ $
  */
-function logger($event, $user ) {
+function logger($event, $user, $source, $result ) {
     $file = fopen('test.txt', 'a+') or die("Can't open file.");
     $now = getTime();
     $user = _crypt($user, 'e');
-    $txt = $now . " [". $event ."] " . "Ref: " . $user . "\n";
+    $txt = $now . ", [". $event ."], " . "Ref: " . $user .  ", " . $source . ", " . $result ."\n";
     fwrite($file, $txt);
     fclose($file);
 }

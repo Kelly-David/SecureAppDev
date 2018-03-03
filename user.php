@@ -37,6 +37,9 @@ else {
                 }
             }
         }
+        else {
+            logger("QUERY ERROR", $email, "user.php", "EXCEPTION");
+        }
     }
 }
 
@@ -86,22 +89,5 @@ echo "
 
 
 ?>
-<html>
-<head></head>
-<body>
-<p><?php echo $_SESSION['username']; ?></p>
-<form action="logout.php">
-    <button>
-        Logout
-    </button>
-</form>
-
-<form action="forgotpassword.php">
-    <button>
-        Logout
-    </button>
-</form>
-</body>
-</html>
 
 

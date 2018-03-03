@@ -22,59 +22,49 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = mysqli_real_escape_string($link,$_POST['email']);
     $password = mysqli_real_escape_string($link,$_POST['password']);
 
-    debug_to_console( $email );
-    debug_to_console( $password );
-
     // VALIDATE THE EMAIL
     if (emailIsValid($email)) {
         if(!emailRegistered($email, $link)) {
+            logger("LOGIN", $email, "login.php", "DENY");
             $email_err = htmlspecialchars( $email, ENT_QUOTES) .  " is not registered in the system.";
         }
     }
-
     // AUTHENTICATE THE PASSWORD
     if(empty($email_err)) {
         // Prep SQL statement
         $sql = "SELECT username, password, lastLogin, attempt  FROM `user` WHERE email = ? ";
-
         if($stmt = mysqli_prepare($link, $sql)) {
             mysqli_stmt_bind_param($stmt, "s", $param_email);
             $param_email = $email;
-
             if (mysqli_stmt_execute($stmt)) {
                 mysqli_stmt_store_result($stmt);
-
                 if ((mysqli_stmt_num_rows($stmt) == 1)) {
                     mysqli_stmt_bind_result($stmt, $myusername, $hashed_password, $llogin, $att);
-
                     if (mysqli_stmt_fetch($stmt)) {
                         $time = strtotime($llogin);
                         $current_time = getTime();
-
                         // Check the lockout time and attempts
                         if ((($current_time - $time) < 300) && ($att == 3)) { // 5 minutes
+                            logger("LOGIN", $email, "login.php", "DENY");
                             $login_err = "Account blocked - try again later";
                         }
                         elseif(empty($login_err)) {
-
                             if(password_verify($password, $hashed_password)) {
-
                                 // Password is correct - user is authenticated
                                 $update = "UPDATE user SET lastLogin = ?, attempt = ? WHERE email = ?";
-
                                 if($stmt = mysqli_prepare($link, $update)) {
                                     mysqli_stmt_bind_param($stmt, "sss", $param_lastLogin, $param_attempt, $param_username);
                                     $param_lastLogin = getTime();
                                     $param_attempt = 0;
                                     $param_username = $email;
-
                                     if(mysqli_stmt_execute($stmt)){
-                                        logger("USER AUTH", $email);
+                                        logger("LOGIN", $email, "login.php", "SUCCESS");
                                         session_start();
                                         $_SESSION['username'] = $email;
                                         header("location: user.php");
                                     }
                                     else {
+                                        logger("QUERY ERROR", $email, "login.php", "EXCEPTION");
                                         echo "Please try again later.";
                                     }
                                 }
@@ -84,17 +74,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                                 if ($att < 3) {
                                     // Failed login - Log the attempt against the user and session
                                     $user_sql = "UPDATE user SET attempt = attempt + 1 WHERE email = ?";
-
                                     if($stmt = mysqli_prepare($link, $user_sql)) {
-
                                         mysqli_stmt_bind_param($stmt, "s", $param_username);
-
                                         $param_username = $email;
-
                                         if(mysqli_stmt_execute($stmt)){
-                                            logger("FAILED AUTH", $email);
-
+                                            logger("LOGIN", $email, "login.php", "DENY");
                                         } else {
+                                            logger("QUERY ERROR", $email, "login.php", "EXCEPTION");
                                             echo "Please try again later.";
                                         }
                                     }

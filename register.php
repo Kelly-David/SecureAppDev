@@ -9,66 +9,60 @@
 require_once("db/dbconfig.php");
 require_once("includes/utils.php");
 session_start();
-
 $email_err = $user_err = $dob_err = $password_err = "";
 $email = $user = $dob = $password = "";
-
 if($_SERVER["REQUEST_METHOD"] == "POST") {
-
     // Form params
     $user = mysqli_real_escape_string($link,$_POST['user']);
     $password = mysqli_real_escape_string($link,$_POST['password']);
     $email = mysqli_real_escape_string($link,$_POST['email']);
     $dob = mysqli_real_escape_string($link,$_POST['dob']);
 
-    //Validate username
-    if(!validate($user, "user")) {
-        $user_err = "Username error. Re-enter.";
-    }
-
-    // Validate the email - if return true email is valid and registered in the system
-    if(validate($email, "email", $link)){
-        $email_err = "Invalid email: " . htmlspecialchars($email, 3) . ". Re-enter or <a href='login.php'>login</a>.";
-    }
-
-    //Validate dob
-    if(!validate($dob, "dob")) {
-        $dob_err = "Date of birth error. Re-enter.";
-    }
-
-    // Validate the password - if false password is not the correct format
-    if(!passwordComplexity($password, $user, $email)) {
-        $password_err = "Invalid password. Re-enter.";
-    }
-
-    if (empty($user_err) && empty($email_err) && empty($dob_err) && empty($password_err)) {
-
-        $sql = "INSERT INTO user (`username`, `password`, `email`, `dob`) VALUES (?, ?, ?, ?)";
-
+    if(!empty($user) && !empty($password) && !empty($email) && !empty($dob)) {
+        //Validate username
+        if(!validate($user, "user")) {
+            logger("REGISTER", $email, "register.php", "DENY");
+            $user_err = "Username error. Re-enter.";
+        }
+        // Validate the email - if return true email is valid and registered in the system
+        if(validate($email, "email", $link)){
+            logger("REGISTER", $email, "register.php", "DENY");
+            $email_err = "Invalid email: " . htmlspecialchars($email, 3) . ". Re-enter or <a href='login.php'>login</a>.";
+        }
+        //Validate dob
+        if(!validate($dob, "dob")) {
+            logger("REGISTER", $email, "register.php", "DENY");
+            $dob_err = "Date of birth error. Re-enter.";
+        }
+        // Validate the password - if false password is not the correct format
+        if(!passwordComplexity($password, $user, $email)) {
+            logger("REGISTER", $email, "register.php", "DENY");
+            $password_err = "Invalid password. Re-enter.";
+        }
+        if (empty($user_err) && empty($email_err) && empty($dob_err) && empty($password_err)) {
+            $sql = "INSERT INTO user (`username`, `password`, `email`, `dob`) VALUES (?, ?, ?, ?)";
             if($stmt = mysqli_prepare($link, $sql)) {
-
-            mysqli_stmt_bind_param($stmt, "ssss", $p_username, $p_password, $p_email, $p_dob);
-            $p_username = $user;
-            $p_password = _hash($password);
-            $p_email = $email;
-            $p_dob = $dob;
-
-            if(mysqli_stmt_execute($stmt)){
-
-                logger("REGISTER", $email);
-                // User created - redirect to login
-                //header("location: login.php" );
-
-            } else {
-                echo "Please try again later.";
+                mysqli_stmt_bind_param($stmt, "ssss", $p_username, $p_password, $p_email, $p_dob);
+                $p_username = _crypt($user);
+                $p_password = _hash($password);
+                $p_email = _crypt($email);
+                $p_dob = _crypt($dob);
+                if(mysqli_stmt_execute($stmt)){
+                    logger("REGISTER", $email, "register.php", "SUCCESS");
+                    // User created - redirect to login
+                    header("location: login.php" );
+                } else {
+                    logger("QUERY ERROR", $email, "register.php", "EXCEPTION");
+                    echo "Please try again later.";
+                }
             }
         }
     }
-
-
+    else {
+        logger("REGISTER", $email, "register.php", "DENY");
+        $email_err = $user_err = $dob_err = $password_err = "Invalid. Re-enter";
+    }
 } // POST REQ END
-
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -81,10 +75,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
 <div class="container-fluid">
     <div class="row" style="margin: 1rem 0 0 0">
-        <div class="col-lg-2">
+        <div class="col-lg-3">
             <p></p>
         </div>
-        <div class="col-lg-8 col-sm-12">
+        <div class="col-lg-6 col-sm-12">
             <div class="card">
                 <div class="card-header">Register
                     <span class="float-right">

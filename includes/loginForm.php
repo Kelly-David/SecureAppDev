@@ -17,10 +17,10 @@
 <body>
 <div class="container-fluid">
     <div class="row" style="margin: 1rem 0 0 0">
-        <div class="col-lg-2">
+        <div class="col-lg-3">
             <p></p>
         </div>
-        <div class="col-lg-8 col-sm-12">
+        <div class="col-lg-6 col-sm-12">
             <div class="card">
                 <div class="card-header">Login
                 </div>
