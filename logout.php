@@ -22,6 +22,8 @@ if(isset($_COOKIE[session_name()])) {
 // unset session id/cookies
 $_SESSION["AnonClientSessionID"] = "";
 $_SESSION['username'] = "";
+$_SESSION['email'] = "";
+
 
 $_SESSION = array();
 

@@ -12,7 +12,7 @@ $DBMS = 'MySQL';
 
 $DB_Param = array();
 $DB_Param['server'] = 'localhost:3306';
-$DB_Param['database'] = 'part2';
+$DB_Param['database'] = 'Project2';
 $DB_Param['user'] = 'root';
 $DB_Param['password'] = '';
 

@@ -3,10 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="61f30463-aa41-4f4d-9992-9fb46a11eb73" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/forgotpassword.php" afterPath="$PROJECT_DIR$/forgotpassword.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/includes/utils.php" afterPath="$PROJECT_DIR$/includes/utils.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/dbconfig.php" afterPath="$PROJECT_DIR$/db/dbconfig.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/mysql.php" afterPath="$PROJECT_DIR$/db/mysql.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/logout.php" afterPath="$PROJECT_DIR$/logout.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test.txt" afterPath="$PROJECT_DIR$/test.txt" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -51,11 +50,34 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="logout.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="logout.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/logout.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="28" column="17" lean-forward="true" selection-start-line="28" selection-start-column="17" selection-end-line="28" selection-end-column="17" />
+            <state relative-caret-position="150">
+              <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="mysql.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/db/mysql.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="135">
+              <caret line="14" column="33" lean-forward="false" selection-start-line="14" selection-start-column="33" selection-end-line="14" selection-end-column="33" />
+              <folding>
+                <marker date="1520166849286" expanded="true" signature="1053:1399" ph="CREATE TABLE... user" />
+                <marker date="1520166849286" expanded="true" signature="1529:1676" ph="CREATE TABLE... clientSession" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="dbconfig.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/db/dbconfig.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="270">
+              <caret line="23" column="0" lean-forward="true" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -89,7 +111,7 @@
       <file leaf-file-name="forgotpassword.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/forgotpassword.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="455">
+            <state relative-caret-position="-923">
               <caret line="42" column="62" lean-forward="true" selection-start-line="42" selection-start-column="62" selection-end-line="42" selection-end-column="62" />
               <folding>
                 <marker date="1520085566415" expanded="true" signature="2340:2391" ph="SELECT token... user" />
@@ -129,22 +151,6 @@
                 <marker date="1519923888784" expanded="true" signature="1473:1854" ph="..." />
                 <marker date="1519923888784" expanded="true" signature="1903:2306" ph="..." />
                 <marker date="1519923888784" expanded="true" signature="2593:2616" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="client.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/includes/client.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="299">
-              <caret line="54" column="51" lean-forward="false" selection-start-line="54" selection-start-column="51" selection-end-line="54" selection-end-column="51" />
-              <folding>
-                <marker date="1520071219514" expanded="true" signature="703:785" ph="SELECT `Coun... clientSession" />
-                <marker date="1520071219514" expanded="true" signature="916:1015" ph="INSERT INTO `clientSession`... " />
-                <marker date="1520071219514" expanded="true" signature="1168:1241" ph="SELECT `Coun... clientSession" />
-                <marker date="1520071219514" expanded="true" signature="1514:1586" ph="SELECT `Tsta... clientSession" />
-                <marker date="1520071219514" expanded="true" signature="2376:2468" ph="UPDATE `clie... " />
               </folding>
             </state>
           </provider>
@@ -208,10 +214,8 @@
         <option value="$PROJECT_DIR$/includes/js.php" />
         <option value="$PROJECT_DIR$/index.php" />
         <option value="$PROJECT_DIR$/includes/styles.php" />
-        <option value="$PROJECT_DIR$/db/dbconfig.php" />
         <option value="$PROJECT_DIR$/db/passwordTokenReset.php" />
         <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/db/mysql.php" />
         <option value="$PROJECT_DIR$/includes/passwordTokenReset.php" />
         <option value="$PROJECT_DIR$/includes/requestToken.php" />
         <option value="$PROJECT_DIR$/includes/loginForm.php" />
@@ -224,6 +228,8 @@
         <option value="$PROJECT_DIR$/includes/utils.php" />
         <option value="$PROJECT_DIR$/forgotpassword.php" />
         <option value="$PROJECT_DIR$/logout.php" />
+        <option value="$PROJECT_DIR$/db/mysql.php" />
+        <option value="$PROJECT_DIR$/db/dbconfig.php" />
       </list>
     </option>
   </component>
@@ -340,12 +346,12 @@
       <workItem from="1518792066845" duration="6748000" />
       <workItem from="1519045903342" duration="8110000" />
       <workItem from="1519817312553" duration="25943000" />
-      <workItem from="1519944260780" duration="16352000" />
+      <workItem from="1519944260780" duration="16915000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="59647000" />
+    <option name="totallyTimeSpent" value="60210000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -583,8 +589,8 @@
         <state relative-caret-position="645">
           <caret line="48" column="24" lean-forward="true" selection-start-line="48" selection-start-column="24" selection-end-line="48" selection-end-column="24" />
           <folding>
-            <marker date="1519920701081" expanded="true" signature="1050:1396" ph="CREATE TABLE... user" />
-            <marker date="1519920701081" expanded="true" signature="1526:1673" ph="CREATE TABLE... clientSession" />
+            <marker date="1520166849286" expanded="true" signature="1053:1399" ph="CREATE TABLE... user" />
+            <marker date="1520166849286" expanded="true" signature="1529:1676" ph="CREATE TABLE... clientSession" />
           </folding>
         </state>
       </provider>
@@ -665,8 +671,8 @@
         <state relative-caret-position="570">
           <caret line="43" column="35" lean-forward="true" selection-start-line="43" selection-start-column="35" selection-end-line="43" selection-end-column="35" />
           <folding>
-            <marker date="1519920701081" expanded="true" signature="1050:1396" ph="CREATE TABLE... user" />
-            <marker date="1519920701081" expanded="true" signature="1526:1673" ph="CREATE TABLE... clientSession" />
+            <marker date="1520166849286" expanded="true" signature="1053:1399" ph="CREATE TABLE... user" />
+            <marker date="1520166849286" expanded="true" signature="1529:1676" ph="CREATE TABLE... clientSession" />
           </folding>
         </state>
       </provider>
@@ -695,8 +701,8 @@
         <state relative-caret-position="420">
           <caret line="33" column="50" lean-forward="true" selection-start-line="33" selection-start-column="50" selection-end-line="33" selection-end-column="50" />
           <folding>
-            <marker date="1519920701081" expanded="true" signature="1050:1396" ph="CREATE TABLE... user" />
-            <marker date="1519920701081" expanded="true" signature="1526:1673" ph="CREATE TABLE... clientSession" />
+            <marker date="1520166849286" expanded="true" signature="1053:1399" ph="CREATE TABLE... user" />
+            <marker date="1520166849286" expanded="true" signature="1529:1676" ph="CREATE TABLE... clientSession" />
           </folding>
         </state>
       </provider>
@@ -786,14 +792,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/db/dbconfig.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
@@ -801,17 +799,6 @@
             <caret line="9" column="21" lean-forward="false" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="21" />
           </first_editor>
           <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/db/mysql.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="91">
-          <caret line="36" column="19" lean-forward="true" selection-start-line="36" selection-start-column="19" selection-end-line="36" selection-end-column="19" />
-          <folding>
-            <marker date="1519920701081" expanded="true" signature="1050:1396" ph="CREATE TABLE... user" />
-            <marker date="1519920701081" expanded="true" signature="1526:1673" ph="CREATE TABLE... clientSession" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -959,9 +946,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/test.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/forgotpassword.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="455">
+        <state relative-caret-position="-923">
           <caret line="42" column="62" lean-forward="true" selection-start-line="42" selection-start-column="62" selection-end-line="42" selection-end-column="62" />
           <folding>
             <marker date="1520085566415" expanded="true" signature="2340:2391" ph="SELECT token... user" />
@@ -972,18 +967,29 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test.txt">
+    <entry file="file://$PROJECT_DIR$/logout.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="150">
+          <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/logout.php">
+    <entry file="file://$PROJECT_DIR$/db/mysql.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="28" column="17" lean-forward="true" selection-start-line="28" selection-start-column="17" selection-end-line="28" selection-end-column="17" />
+        <state relative-caret-position="135">
+          <caret line="14" column="33" lean-forward="false" selection-start-line="14" selection-start-column="33" selection-end-line="14" selection-end-column="33" />
+          <folding>
+            <marker date="1520166849286" expanded="true" signature="1053:1399" ph="CREATE TABLE... user" />
+            <marker date="1520166849286" expanded="true" signature="1529:1676" ph="CREATE TABLE... clientSession" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/dbconfig.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="23" column="0" lean-forward="true" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
           <folding />
         </state>
       </provider>
