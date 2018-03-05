@@ -210,6 +210,21 @@ function clientAttemptQuery($client, $link, $param = "any") {
 
 }
 
+/**
+ * @param $client
+ * @param $link
+ * @param $param
+ * @return string
+ */
+function clientAttemptReset($client, $link) {
+    $session_sql = "UPDATE clientSession SET Counter = 0, Tstamp = NOW() WHERE SessionID = '$client'";
+    $result = mysqli_query($link,$session_sql);
+    if (!$result) {
+        logger("QUERY ERROR", $client, "utils.php", "EXCEPTION");
+        die('SQL error. Could not query');
+    }
+}
+
 
 /**
  * Password complexity rules according to https://technet.microsoft.com/en-us/library/cc786468(v=ws.10).aspx
