@@ -138,11 +138,11 @@ function validate($param, $case, $link = "", $email = "", $user = "") {
 }
 
 /**
- * Who (User), When (Timestamp), Where (Context/ Action being performed), What (Command / Database query), Result (Exception, deny, success) 
- * @param $event
- * @param $user
- * @param $source
- * @param $result
+ * Log format : TIMESTAMP, ACTION, USER REF, SOURCE, RESULT
+ * @param $event - the intended action being performed
+ * @param $user - the user performing the action
+ * @param $source - the page from which the action originated
+ * @param $result - the outcome of the action (SUCCESS, DENY, EXCEPTION).
  * @internal param $ $
  */
 function logger($event, $user, $source, $result ) {
@@ -155,16 +155,17 @@ function logger($event, $user, $source, $result ) {
 }
 
 /**
- * Encrypt and decrypt
+ * Encrypt and decrypt:
+ * This function is used to encrypt data before writing to the database and decrypt upon retrieval from the database.
  * @author Nazmul Ahsan <n.mukto@gmail.com>
  * @link http://nazmulahsan.me/simple-two-way-function-encrypt-decrypt-string/
  * @param string $string string to be encrypted/decrypted
  * @param string $action what to do with this? e for encrypt, d for decrypt
  * @return bool
  */
-function _crypt( $string, $action = 'e' ) {
-    $secret_key = 'my_simple_secret_key';
-    $secret_iv = 'my_simple_secret_iv';
+function _crypt( $string, $action = 'e') {
+    $secret_key = 'secure_app_secret_key';
+    $secret_iv = 'secure_app_secret_iv';
     $output = false;
     $encrypt_method = "AES-256-CBC";
     $key = hash( 'sha256', $secret_key );
@@ -179,7 +180,7 @@ function _crypt( $string, $action = 'e' ) {
 }
 
 /**
- * password_hash randomly generates a salt for each password
+ * password_hash: randomly generates a salted hash for each password
  * @param $password
  * @return string
  */
@@ -222,8 +223,8 @@ function passwordComplexity($password, $username, $email) {
         $valid =  false;
     }
 
-    // Split the username by delimiters
-    $username_keywords = preg_split("/[\s,]+/", $username);
+    // Split the username by delimiters [space, comma, underscore, period]
+    $username_keywords = preg_split("/[\s,_.]+/", $username);
 
     foreach ($username_keywords as $key) {
         // Tokens greater than 3 characters
