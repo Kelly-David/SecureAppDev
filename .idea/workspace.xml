@@ -142,13 +142,13 @@
       <file leaf-file-name="utils.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/includes/utils.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="592">
-              <caret line="244" column="18" lean-forward="true" selection-start-line="244" selection-start-column="18" selection-end-line="244" selection-end-column="18" />
+            <state relative-caret-position="386">
+              <caret line="223" column="66" lean-forward="false" selection-start-line="223" selection-start-column="66" selection-end-line="223" selection-end-column="66" />
               <folding>
-                <marker date="1520243243428" expanded="true" signature="762:802" ph="SELECT email... user" />
-                <marker date="1520243243428" expanded="true" signature="1469:1512" ph="SELECT usern... user" />
-                <marker date="1520243243428" expanded="true" signature="5591:5672" ph="UPDATE clien... " />
-                <marker date="1520243243428" expanded="true" signature="5591:5681" ph="UPDATE clien... " />
+                <marker date="1520249314175" expanded="true" signature="762:802" ph="SELECT email... user" />
+                <marker date="1520249314175" expanded="true" signature="1469:1512" ph="SELECT usern... user" />
+                <marker date="1520249314175" expanded="true" signature="5591:5672" ph="UPDATE clien... " />
+                <marker date="1520249314175" expanded="true" signature="5591:5681" ph="UPDATE clien... " />
               </folding>
             </state>
           </provider>
@@ -330,12 +330,12 @@
       <workItem from="1518792066845" duration="6748000" />
       <workItem from="1519045903342" duration="8110000" />
       <workItem from="1519817312553" duration="25943000" />
-      <workItem from="1519944260780" duration="19747000" />
+      <workItem from="1519944260780" duration="20094000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="63042000" />
+    <option name="totallyTimeSpent" value="63389000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -471,10 +471,10 @@
         <state relative-caret-position="315">
           <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
           <folding>
-            <marker date="1520243243428" expanded="true" signature="762:802" ph="SELECT email... user" />
-            <marker date="1520243243428" expanded="true" signature="1469:1512" ph="SELECT usern... user" />
-            <marker date="1520243243428" expanded="true" signature="5591:5672" ph="UPDATE clien... " />
-            <marker date="1520243243428" expanded="true" signature="5591:5681" ph="UPDATE clien... " />
+            <marker date="1520249314175" expanded="true" signature="762:802" ph="SELECT email... user" />
+            <marker date="1520249314175" expanded="true" signature="1469:1512" ph="SELECT usern... user" />
+            <marker date="1520249314175" expanded="true" signature="5591:5672" ph="UPDATE clien... " />
+            <marker date="1520249314175" expanded="true" signature="5591:5681" ph="UPDATE clien... " />
           </folding>
         </state>
       </provider>
@@ -544,10 +544,10 @@
         <state relative-caret-position="210">
           <caret line="19" column="18" lean-forward="true" selection-start-line="19" selection-start-column="18" selection-end-line="19" selection-end-column="18" />
           <folding>
-            <marker date="1520243243428" expanded="true" signature="762:802" ph="SELECT email... user" />
-            <marker date="1520243243428" expanded="true" signature="1469:1512" ph="SELECT usern... user" />
-            <marker date="1520243243428" expanded="true" signature="5591:5672" ph="UPDATE clien... " />
-            <marker date="1520243243428" expanded="true" signature="5591:5681" ph="UPDATE clien... " />
+            <marker date="1520249314175" expanded="true" signature="762:802" ph="SELECT email... user" />
+            <marker date="1520249314175" expanded="true" signature="1469:1512" ph="SELECT usern... user" />
+            <marker date="1520249314175" expanded="true" signature="5591:5672" ph="UPDATE clien... " />
+            <marker date="1520249314175" expanded="true" signature="5591:5681" ph="UPDATE clien... " />
           </folding>
         </state>
       </provider>
@@ -627,10 +627,10 @@
         <state relative-caret-position="150">
           <caret line="15" column="1" lean-forward="false" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
           <folding>
-            <marker date="1520243243428" expanded="true" signature="762:802" ph="SELECT email... user" />
-            <marker date="1520243243428" expanded="true" signature="1469:1512" ph="SELECT usern... user" />
-            <marker date="1520243243428" expanded="true" signature="5591:5672" ph="UPDATE clien... " />
-            <marker date="1520243243428" expanded="true" signature="5591:5681" ph="UPDATE clien... " />
+            <marker date="1520249314175" expanded="true" signature="762:802" ph="SELECT email... user" />
+            <marker date="1520249314175" expanded="true" signature="1469:1512" ph="SELECT usern... user" />
+            <marker date="1520249314175" expanded="true" signature="5591:5672" ph="UPDATE clien... " />
+            <marker date="1520249314175" expanded="true" signature="5591:5681" ph="UPDATE clien... " />
           </folding>
         </state>
       </provider>
@@ -704,10 +704,10 @@
         <state relative-caret-position="150">
           <caret line="15" column="1" lean-forward="false" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
           <folding>
-            <marker date="1520243243428" expanded="true" signature="762:802" ph="SELECT email... user" />
-            <marker date="1520243243428" expanded="true" signature="1469:1512" ph="SELECT usern... user" />
-            <marker date="1520243243428" expanded="true" signature="5591:5672" ph="UPDATE clien... " />
-            <marker date="1520243243428" expanded="true" signature="5591:5681" ph="UPDATE clien... " />
+            <marker date="1520249314175" expanded="true" signature="762:802" ph="SELECT email... user" />
+            <marker date="1520249314175" expanded="true" signature="1469:1512" ph="SELECT usern... user" />
+            <marker date="1520249314175" expanded="true" signature="5591:5672" ph="UPDATE clien... " />
+            <marker date="1520249314175" expanded="true" signature="5591:5681" ph="UPDATE clien... " />
           </folding>
         </state>
       </provider>
@@ -973,13 +973,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/includes/utils.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="592">
-          <caret line="244" column="18" lean-forward="true" selection-start-line="244" selection-start-column="18" selection-end-line="244" selection-end-column="18" />
+        <state relative-caret-position="386">
+          <caret line="223" column="66" lean-forward="false" selection-start-line="223" selection-start-column="66" selection-end-line="223" selection-end-column="66" />
           <folding>
-            <marker date="1520243243428" expanded="true" signature="762:802" ph="SELECT email... user" />
-            <marker date="1520243243428" expanded="true" signature="1469:1512" ph="SELECT usern... user" />
-            <marker date="1520243243428" expanded="true" signature="5591:5672" ph="UPDATE clien... " />
-            <marker date="1520243243428" expanded="true" signature="5591:5681" ph="UPDATE clien... " />
+            <marker date="1520249314175" expanded="true" signature="762:802" ph="SELECT email... user" />
+            <marker date="1520249314175" expanded="true" signature="1469:1512" ph="SELECT usern... user" />
+            <marker date="1520249314175" expanded="true" signature="5591:5672" ph="UPDATE clien... " />
+            <marker date="1520249314175" expanded="true" signature="5591:5681" ph="UPDATE clien... " />
           </folding>
         </state>
       </provider>

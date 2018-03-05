@@ -215,17 +215,13 @@ function clientAttemptQuery($client, $link, $param = "any") {
  * @internal param $ $
  */
 function passwordComplexity($password, $username, $email) {
-
     $valid = true;
-
     // If the password contains the entire email
     if (strpos($password, $email) !== false) {
         $valid =  false;
     }
-
     // Split the username by delimiters [not alpha numeric characters]
     $username_keywords = preg_split("/[^a-zA-Z0-9]+/", $username);
-
     foreach ($username_keywords as $key) {
         // Tokens greater than or equal to 3 characters
         if (strlen($key) > 2) {
@@ -236,7 +232,6 @@ function passwordComplexity($password, $username, $email) {
             }
         }
     }
-
     // Does the password match the regex
     if(!passwordRegex($password)) {
         debug_to_console("False regex: " . $valid);
