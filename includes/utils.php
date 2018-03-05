@@ -223,12 +223,12 @@ function passwordComplexity($password, $username, $email) {
         $valid =  false;
     }
 
-    // Split the username by delimiters [space, comma, underscore, period]
-    $username_keywords = preg_split("/[\s,_.]+/", $username);
+    // Split the username by delimiters [not alpha numeric characters]
+    $username_keywords = preg_split("/[^a-zA-Z0-9]+/", $username);
 
     foreach ($username_keywords as $key) {
-        // Tokens greater than 3 characters
-        if (strlen($key) > 3) {
+        // Tokens greater than or equal to 3 characters
+        if (strlen($key) > 2) {
 
             // Check the token is not a substring of the password
             if (strpos($password, $key) !== false ) {
