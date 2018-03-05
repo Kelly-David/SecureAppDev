@@ -1,5 +1,8 @@
 <?php
 /**
+ * @file client.php
+ * Check to see if is a new client. If new client; create a client ref in the db.
+ * Else check check client attempts; if valid number of attempts (<3) - permit auth; else lockout.
  * Created by PhpStorm.
  * User: david
  * Date: 19/02/2018
@@ -37,12 +40,14 @@ if ($query->num_rows == 0) {  // New client
     $sql = "INSERT INTO `clientSession` (`SessionID`, `Counter`, `Tstamp`) VALUES ('$anonClientID', '0', NOW())";
 
     if (!mysqli_query($link,$sql)) {
+        logger("QUERY ERROR", $email, "client.php", "EXCEPTION");
         die('Error: ' . mysqli_error($con));
     } // Inserted
 } else { // We have seen this client
     $sql = "SELECT `Counter` FROM `clientSession` WHERE `SessionID` = '$anonClientID'";
     $result = mysqli_query($link,$sql);
     if (!$result) {
+        logger("QUERY ERROR", $email, "client.php", "EXCEPTION");
         die('Could not query:' . mysql_error());
     } else { // OK
         $counter = ($result->fetch_row()[0]);  // get the counter
@@ -52,6 +57,7 @@ if ($query->num_rows == 0) {  // New client
             $result = mysqli_query($link,$sql);
 
             if (!$result) {
+                logger("QUERY ERROR", $email, "client.php", "EXCEPTION");
                 die('Could not query:' . mysql_error());
             } else {
                 // get the last login attempt time to determine if a 5 min lockout should be enforced
@@ -68,6 +74,7 @@ if ($query->num_rows == 0) {  // New client
                 $sql = "UPDATE `clientSession` SET `Counter`=0, `Tstamp` = NOW() WHERE `SessionID` = '$anonClientID'";
                 $result = mysqli_query($link,$sql);
                 if (!$result) {
+                    logger("QUERY ERROR", $email, "client.php", "EXCEPTION");
                     die('Could not query:' . mysql_error());
                 } // OK
             }
