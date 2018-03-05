@@ -37,17 +37,18 @@ $objDateTime = new DateTime('NOW');
 $query = mysqli_query($link,$sql);
 
 if ($query->num_rows == 0) {  // New client
+    logger("CREATE CLIENT", $anonClientID, "client.php", "SUCCESS");
     $sql = "INSERT INTO `clientSession` (`SessionID`, `Counter`, `Tstamp`) VALUES ('$anonClientID', '0', NOW())";
 
     if (!mysqli_query($link,$sql)) {
-        logger("QUERY ERROR", $email, "client.php", "EXCEPTION");
+        logger("QUERY ERROR", $anonClientID, "client.php", "EXCEPTION");
         die('Error: ' . mysqli_error($con));
     } // Inserted
 } else { // We have seen this client
     $sql = "SELECT `Counter` FROM `clientSession` WHERE `SessionID` = '$anonClientID'";
     $result = mysqli_query($link,$sql);
     if (!$result) {
-        logger("QUERY ERROR", $email, "client.php", "EXCEPTION");
+        logger("QUERY ERROR", $anonClientID, "client.php", "EXCEPTION");
         die('Could not query:' . mysql_error());
     } else { // OK
         $counter = ($result->fetch_row()[0]);  // get the counter
@@ -57,7 +58,7 @@ if ($query->num_rows == 0) {  // New client
             $result = mysqli_query($link,$sql);
 
             if (!$result) {
-                logger("QUERY ERROR", $email, "client.php", "EXCEPTION");
+                logger("QUERY ERROR", $anonClientID, "client.php", "EXCEPTION");
                 die('Could not query:' . mysql_error());
             } else {
                 // get the last login attempt time to determine if a 5 min lockout should be enforced
@@ -66,15 +67,17 @@ if ($query->num_rows == 0) {  // New client
             $currentTime = date('Y-m-d H:i:s');
             $differenceInSeconds = strtotime($currentTime) - strtotime($lastLoginAttemptTime);
             if((int)$differenceInSeconds <= 300) { // 5 minute lockout
+                logger("CAN AUTH", $anonClientID, "client.php", "DENY");
                 // Client not permitted to attempt login
                 $can_authenticate = false;
             } else
             { // Display Login
+                logger("CAN AUTH", $anonClientID, "client.php", "SUCCESS");
                 //reset the counter as 3 minutes has passed.
                 $sql = "UPDATE `clientSession` SET `Counter`=0, `Tstamp` = NOW() WHERE `SessionID` = '$anonClientID'";
                 $result = mysqli_query($link,$sql);
                 if (!$result) {
-                    logger("QUERY ERROR", $email, "client.php", "EXCEPTION");
+                    logger("QUERY ERROR", $anonClientID, "client.php", "EXCEPTION");
                     die('Could not query:' . mysql_error());
                 } // OK
             }
