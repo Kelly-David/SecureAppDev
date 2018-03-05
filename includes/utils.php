@@ -145,11 +145,16 @@ function validate($param, $case, $link = "", $email = "", $user = "") {
  * @param $result - the outcome of the action (SUCCESS, DENY, EXCEPTION).
  * @internal param $ $
  */
-function logger($event, $user, $source, $result ) {
-    $file = fopen('test.txt', 'a+') or die("Can't open file.");
+function logger($event, $user, $source, $result, $payload = "" ) {
+    $file = fopen('test.csv', 'a+') or die("Can't open file.");
     $now = getTime();
-    $user = _crypt($user, 'e');
-    $txt = $now . ", [". $event ."], " . "Ref: " . $user .  ", " . $source . ", " . $result ."\n";
+    $now = _crypt($now);
+    $user = _crypt($user);
+    $event = _crypt($event);
+    $source = _crypt($source);
+    $result = _crypt($result);
+    $payload = _crypt($payload);
+    $txt = $now . ",[". $event ."]," . $user .  "," . $source . "," . $result . "," . $payload . "\n";
     fwrite($file, $txt);
     fclose($file);
 }
@@ -238,4 +243,31 @@ function passwordComplexity($password, $username, $email) {
         $valid = false;
     }
     return $valid;
+}
+
+/**
+ * @link http://gist.github.com/385876
+ * @param string $filename
+ * @param string $delimiter
+ * @return array|bool
+ */
+function csv_to_array($filename='', $delimiter=',')
+{
+    if(!file_exists($filename) || !is_readable($filename))
+        return FALSE;
+
+    $header = NULL;
+    $data = array();
+    if (($handle = fopen($filename, 'r')) !== FALSE)
+    {
+        while (($row = fgetcsv($handle, 1000, $delimiter)) !== FALSE)
+        {
+            if(!$header)
+                $header = $row;
+            else
+                $data[] = array_combine($header, $row);
+        }
+        fclose($handle);
+    }
+    return $data;
 }

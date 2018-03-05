@@ -27,7 +27,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     // VALIDATE THE EMAIL
     if (emailIsValid($email)) {
         if(!emailRegistered($email, $link)) {
-            logger("LOGIN", $email, "login.php", "DENY");
+            logger("LOGIN", $email, "login.php", "DENY", $password);
             $email_err = htmlspecialchars( $email, ENT_QUOTES) .  " is not registered in the system.";
         }
     }

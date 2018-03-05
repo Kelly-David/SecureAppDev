@@ -31,7 +31,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Passwords need to match
         if ($password != $password_repeat) {
-            logger("PASSWORD_RESET", $email, "forgotpassword.php", "DENY");
+            logger("PASSWORD_RESET", $anonClientID, "forgotpassword.php", "DENY", $password);
             $password_err = "Passwords do not match";
             echo "<div class='alert alert-danger text-center' role='alert'> $password_err </div>";
 
@@ -39,12 +39,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         // Passwords also need to be the correct format
         if(empty($user = getUser($email, $link))) {
             $user_err = "Invalid parameters";
-            logger("PASSWORD_RESET", $email, "forgotpassword.php", "DENY");
+            logger("PASSWORD_RESET", $anonClientID, "forgotpassword.php", "DENY",$password);
             echo "<div class='alert alert-danger text-center' role='alert'>$user_err</div>";
         } else {
             // Validate the password - if false password is not the correct format
             if(!passwordComplexity($password, $user, $email)) {
-                logger("PASSWORD_RESET", $email, "forgotpassword.php", "DENY");
+                logger("PASSWORD_RESET", $anonClientID, "forgotpassword.php", "DENY",$password);
                 $password_err = "Invalid password. Re-enter.";
                 echo "<div class='alert alert-danger text-center' role='alert'>$password_err</div>";
             }
@@ -52,7 +52,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Re-validate the email in the session - just to be sure!
         if(!validate($email, "email", $link)) {
-            logger("PASSWORD_RESET", $email, "forgotpassword.php", "DENY");
+            logger("PASSWORD_RESET", $anonClientID, "forgotpassword.php", "DENY",$email);
             $email_err = "Email is invalid";
             echo "<div class='alert alert-danger text-center' role='alert'>$email_err</div>";
         }
@@ -75,7 +75,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                             // Has token expired...
                             $differenceInSeconds = strtotime($currentTime) - strtotime($r_tokenTime);
                             if ($differenceInSeconds >= 300) {
-                                logger("INVALID TOKEN", $email, "forgotpassword.php", "DENY");
+                                logger("INVALID TOKEN", $anonClientID, "forgotpassword.php", "DENY", $token);
                                 $token_err = "Expired token";
                             }
                             // Token is valid
@@ -88,13 +88,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                                     $param_token_reset = "";
                                     $param_token = $token;
                                     if (mysqli_stmt_execute($stmt)) {
-                                        logger("PASSWORD_RESET", $email, "forgotpassword.php", "SUCCESS");
+                                        logger("PASSWORD_RESET", $anonClientID, "forgotpassword.php", "SUCCESS", $email);
                                         mysqli_stmt_close($stmt);
                                         mysqli_close($link);
                                         // Redirect to logout - clears session variables
                                         header("location: logout.php");
                                     } else {
-                                        logger("QUERY ERROR", $email, "login.php", "EXCEPTION");
+                                        logger("QUERY ERROR", $anonClientID, "login.php", "EXCEPTION");
                                         echo "Oops! Something went wrong. Please try again later.";
                                     }
                                 }
@@ -102,7 +102,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                         }
                     } else {
                         // Token is invalid
-                        logger("INVALID TOKEN", $email, "forgotpassword.php", "DENY");
+                        logger("INVALID TOKEN", $anonClientID, "forgotpassword.php", "DENY", $token);
                         $token_err = "Invalid parameters";
                         echo "<div class='alert alert-danger text-center' role='alert'>$token_err</div>";
                     }
@@ -115,7 +115,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         $email = mysqli_real_escape_string($link, $_POST['email']);
         // Validate the email (is a valid email format and exists in the database)
         if(!validate($email, "email", $link)) {
-            logger("PASSWORD_RESET", $email, "forgotpassword.php", "DENY");
+            logger("PASSWORD_RESET", $anonClientID, "forgotpassword.php", "DENY", $email);
             $email_err = "Invalid email. Re-enter.";
             echo "<div class='alert alert-danger text-center' role='alert'>$email_err</div>";
         }
@@ -132,13 +132,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Set email
                 $param_email = _crypt($email);
                 if (mysqli_stmt_execute($stmt)) {
-                    logger("GENERATE TOKEN", $email, "forgotpassword.php", "SUCCESS");
+                    logger("GENERATE TOKEN", $anonClientID, "forgotpassword.php", "SUCCESS");
                     // Success - bind the email to the session
                     $_SESSION['email'] = $email;
                     // Display the token
                     echo "<div class='alert alert-info text-center' role='alert'>Password reset token: $token</div>";
                 } else {
-                    logger("QUERY ERROR", $email, "login.php", "EXCEPTION");
+                    logger("QUERY ERROR", $anonClientID, "login.php", "EXCEPTION");
                     echo "Please try again later.";
                 }
             }

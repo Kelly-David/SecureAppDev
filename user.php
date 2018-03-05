@@ -69,8 +69,8 @@ echo "Username: ". $username;
 echo "<br>";
 echo "Email: " . $email;
 echo "<br>";
-echo "Date of Birth: " . $dob;
-echo "</p>
+echo "Date of Birth: " . $dob . "</p>";
+echo "
       <form action='logout.php' method='post'>
       <br>
       <button type='submit' id='submit' class='btn btn-primary btn-sm float-right'><i class='fa fa-sign-in' aria-hidden='true'></i> Logout</button>
@@ -81,14 +81,12 @@ echo "</p>
       </div>
       </div>
       </div>";
+require_once ('includes/log.php');
 include("includes/js.php");
 echo "
     </div>
     </body>
     </html>";
 
-
-
-?>
 
 

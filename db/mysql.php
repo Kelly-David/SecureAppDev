@@ -67,6 +67,10 @@ if( !@mysqli_query($link,$sql_create_session_tb)) {
     debug_to_console("Could not create user table");
 }
 
+// Delete old log files
+$mask = "*.csv";
+   array_map( "unlink", glob( $mask ) );
+
 // Done - redirect
 $login = "<a href='register.php'>login</a>";
 header("location: register.php");
