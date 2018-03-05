@@ -12,7 +12,7 @@
 
 <head>
     <?php include("includes/styles.php"); ?>
-    <title>Login</title>
+    <title>Lockout</title>
 </head>
 
 <body>
@@ -23,7 +23,7 @@
         </div>
         <div class="col-lg-6 col-sm-12">
             <div class="card">
-                <div class="card-header">Login
+                <div class="card-header">Lockout
                 </div>
                 <div class="card-body">
                     <p>Try again later.</p>

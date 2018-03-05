@@ -10,6 +10,8 @@ require_once("includes/utils.php");
 
 $can_authenticate = true;
 
+session_start();
+
 require_once ("includes/client.php");
 // Define variables
 
@@ -98,8 +100,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         $email_err = clientAttemptQuery($anonClientID, $link, $email);
     }
 }
-?>
-<?php
+
 if($can_authenticate) {
     require_once("includes/loginForm.php");
 } else {

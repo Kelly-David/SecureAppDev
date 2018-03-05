@@ -24,9 +24,6 @@ $browser = $_SERVER['HTTP_USER_AGENT'];
 // Build client ID string
 $anonClientID = (string)$browser. (string)$ip;
 
-// Start a session
-session_start();
-
 // Hash and store client ID
 $anonClientID = md5($anonClientID);
 $_SESSION["AnonClientSessionID"]=$anonClientID;

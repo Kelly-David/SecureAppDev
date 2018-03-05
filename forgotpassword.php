@@ -11,6 +11,11 @@ require_once("includes/utils.php");
 
 session_start();
 
+$can_authenticate = true;
+
+require_once ('includes/client.php');
+
+
 $token = $email = $password  = $password_repeat = $dob = $user = "";
 $token_err = $password_err = $dob_err = $email_err = $user_err = "";
 
@@ -31,7 +36,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "<div class='alert alert-danger text-center' role='alert'> $password_err </div>";
 
         }
-        // Passwords also need to be the correct format TODO
+        // Passwords also need to be the correct format
         if(empty($user = getUser($email, $link))) {
             $user_err = "Invalid parameters";
             logger("PASSWORD_RESET", $email, "forgotpassword.php", "DENY");
@@ -142,11 +147,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
 }
 
-// No token set - display the form to request token using email.
-if($token == "") {
-    require_once ("includes/requestToken.php");
+// Update the session of the failed reset attempt [prevent brute force].
+if(!empty($email_err)) {
+    $email_err = clientAttemptQuery($anonClientID, $link, $email);
 }
-else {
-    // Display the password reset with token form
-    require_once('includes/passwordTokenReset.php');
+
+if($can_authenticate) {
+    // No token set - display the form to request token using email.
+    if($token == "") {
+        require_once ("includes/requestToken.php");
+    }
+    else {
+        // Display the password reset with token form
+        require_once('includes/passwordTokenReset.php');
+    }
+} else {
+    require_once ('includes/lockout.php');
 }

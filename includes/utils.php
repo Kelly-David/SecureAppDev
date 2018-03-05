@@ -201,7 +201,7 @@ function clientAttemptQuery($client, $link, $param = "any") {
         logger("QUERY ERROR", $client, "utils.php", "EXCEPTION");
         die('SQL error. Could not query');
     }
-    return "Email "  . htmlspecialchars($param, 3) . " and password combination invalid";
+    return "Email "  . htmlspecialchars($param, 3) . " invalid. Login or re-enter.";
 
 }
 
