@@ -27,7 +27,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     // VALIDATE THE EMAIL
     if (emailIsValid($email)) {
         if(!emailRegistered($email, $link)) {
-            logger("LOGIN", $email, "login.php", "DENY", $password);
+            logger("LOGIN", $anonClientID, "login.php", "DENY", $email);
             $email_err = htmlspecialchars( $email, ENT_QUOTES) .  " is not registered in the system.";
         }
     }
@@ -48,7 +48,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                         $current_time = getTime();
                         // Check the lockout time and attempts
                         if ((($current_time - $time) < 300) && ($att == 3)) { // 5 minutes
-                            logger("LOGIN", $email, "login.php", "DENY");
+                            logger("LOGIN", $anonClientID, "login.php", "DENY", "Locked Out");
                             $login_err = "Account blocked - try again later";
                         }
                         elseif(empty($login_err)) {
@@ -61,13 +61,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                                     $param_attempt = 0;
                                     $param_username = _crypt($email);
                                     if(mysqli_stmt_execute($stmt)){
-                                        logger("LOGIN", $email, "login.php", "SUCCESS");
+                                        logger("LOGIN", $anonClientID, "login.php", "SUCCESS", $email);
                                         session_start();
                                         $_SESSION['username'] = $email;
                                         header("location: user.php");
                                     }
                                     else {
-                                        logger("QUERY ERROR", $email, "login.php", "EXCEPTION");
+                                        logger("QUERY ERROR", $anonClientID, "login.php", "EXCEPTION");
                                         echo "Please try again later.";
                                     }
                                 }
@@ -81,9 +81,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                                         mysqli_stmt_bind_param($stmt, "s", $param_username);
                                         $param_username = _crypt($email);
                                         if(mysqli_stmt_execute($stmt)){
-                                            logger("LOGIN", $email, "login.php", "DENY");
+                                            logger("LOGIN", $anonClientID, "login.php", "DENY", $password);
                                         } else {
-                                            logger("QUERY ERROR", $email, "login.php", "EXCEPTION");
+                                            logger("QUERY ERROR", $anonClientID, "login.php", "EXCEPTION");
                                             echo "Please try again later.";
                                         }
                                     }

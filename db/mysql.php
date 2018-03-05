@@ -69,7 +69,13 @@ if( !@mysqli_query($link,$sql_create_session_tb)) {
 
 // Delete old log files
 $mask = "*.csv";
-   array_map( "unlink", glob( $mask ) );
+array_map( "unlink", glob( $mask ) );
+
+// Create new log file
+$file = fopen('test.csv', 'a+') or die("Can't open file.");
+$txt = "TIME,EVENT,CLIENT,SOURCE,RESULT,PAYLOAD"."\n";
+fwrite($file, $txt);
+fclose($file);
 
 // Done - redirect
 $login = "<a href='register.php'>login</a>";

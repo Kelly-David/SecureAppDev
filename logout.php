@@ -11,7 +11,8 @@ require_once("includes/utils.php");
 session_start();
 
 $email = $_SESSION['username'];
-logger("LOGOUT", $email, "logout.php", "SUCCESS");
+$client = $_SESSION['AnonClientSessionID'];
+logger("LOGOUT", $client, "logout.php", "SUCCESS", $email);
 $email = "";
 
 session_start();

@@ -9,6 +9,7 @@
 require_once("db/dbconfig.php");
 require_once("includes/utils.php");
 session_start();
+require_once ("includes/client.php");
 $email_err = $user_err = $dob_err = $password_err = "";
 $email = $user = $dob = $password = "";
 if($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -21,22 +22,22 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     if(!empty($user) && !empty($password) && !empty($email) && !empty($dob)) {
         //Validate username
         if(!validate($user, "user")) {
-            logger("REGISTER", $email, "register.php", "DENY");
+            logger("REGISTER", $anonClientID, "register.php", "DENY", $user);
             $user_err = "Username error. Re-enter.";
         }
         // Validate the email - if return true email is valid and registered in the system
         if(validate($email, "email", $link)){
-            logger("REGISTER", $email, "register.php", "DENY");
+            logger("REGISTER", $anonClientID, "register.php", "DENY", $email);
             $email_err = "Invalid email: " . htmlspecialchars($email, 3) . ". Re-enter or <a href='login.php'>login</a>.";
         }
         //Validate dob
         if(!validate($dob, "dob")) {
-            logger("REGISTER", $email, "register.php", "DENY");
+            logger("REGISTER", $anonClientID, "register.php", "DENY", $dob);
             $dob_err = "Date of birth error. Re-enter.";
         }
         // Validate the password - if false password is not the correct format
         if(!passwordComplexity($password, $user, $email)) {
-            logger("REGISTER", $email, "register.php", "DENY");
+            logger("REGISTER", $anonClientID, "register.php", "DENY", $password);
             $password_err = "Invalid password. Re-enter.";
         }
         if (empty($user_err) && empty($email_err) && empty($dob_err) && empty($password_err)) {
@@ -48,18 +49,18 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                 $p_email = _crypt($email);
                 $p_dob = _crypt($dob);
                 if(mysqli_stmt_execute($stmt)){
-                    logger("REGISTER", $email, "register.php", "SUCCESS");
+                    logger("REGISTER", $anonClientID, "register.php", "SUCCESS");
                     // User created - redirect to login
                     header("location: login.php" );
                 } else {
-                    logger("QUERY ERROR", $email, "register.php", "EXCEPTION");
+                    logger("QUERY ERROR", $anonClientID, "register.php", "EXCEPTION");
                     echo "Please try again later.";
                 }
             }
         }
     }
     else {
-        logger("REGISTER", $email, "register.php", "DENY");
+        logger("REGISTER", $anonClientID, "register.php", "DENY");
         $email_err = $user_err = $dob_err = $password_err = "Invalid. Re-enter";
     }
 } // POST REQ END
