@@ -73,6 +73,9 @@ echo "Date of Birth: " . $dob . "</p>";
 echo "
       <form action='logout.php' method='post'>
       <br>
+      <small>
+      <a href='log.php'>Log</a>
+      </small>
       <button type='submit' id='submit' class='btn btn-primary btn-sm float-right'><i class='fa fa-sign-in' aria-hidden='true'></i> Logout</button>
       </form>
       </div>
@@ -81,7 +84,6 @@ echo "
       </div>
       </div>
       </div>";
-require_once ('includes/log.php');
 include("includes/js.php");
 echo "
     </div>

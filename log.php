@@ -5,13 +5,19 @@
  * Date: 05/03/2018
  * Time: 13:34
  */
-
+require_once ("includes/utils.php");
+session_start();
 // Check user is authenticated
 if(!$_SESSION['username']) {
-    header("location: ../logout.php");
+    header("location: logout.php");
 }
 
-echo "<h4>Activity Log</h4>";
+echo "<html>
+        <head>
+        <title>Log</title>";
+include("includes/styles.php");
+echo "  </head>
+      <body><div class='container-fluid'><h4>Activity Log</h4>";
 
 $log = csv_to_array('test.csv');
 
@@ -36,5 +42,6 @@ foreach ($log as $row) {
     }
     echo "</tr>";
 }
-echo "<tbody>";
-echo "</table>";
+echo "<tbody></table></div><a href='user.php'>Back</a> ";
+include("includes/js.php");
+echo "</body></html>";
