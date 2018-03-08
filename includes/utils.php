@@ -48,7 +48,7 @@ function emailRegistered($email, $link) {
                 $valid = true;
             }
         } else {
-            logger("QUERY ERROR", $email, "utils.php", "EXCEPTION");
+            logger("QUERY ERROR", $email, "utils.php", "EXCEPTION", $sql);
         }
     }
     return $valid;
@@ -75,7 +75,7 @@ function getUser($email, $link) {
                 }
             }
         } else {
-            logger("QUERY ERROR", $email, "utils.php", "EXCEPTION");
+            logger("QUERY ERROR", $email, "utils.php", "EXCEPTION", $sql);
         }
     }
     return $username;
@@ -148,37 +148,43 @@ function validate($param, $case, $link = "", $email = "", $user = "") {
 function logger($event, $user, $source, $result, $payload = "" ) {
     $file = fopen('test.csv', 'a+') or die("Can't open file.");
     $now = getTime();
-    $now = _crypt($now);
-    $user = _crypt($user);
-    $event = _crypt($event);
-    $source = _crypt($source);
-    $result = _crypt($result);
-    $payload = _crypt($payload);
-    $txt = $now . ",[". $event ."]," . $user .  "," . $source . "," . $result . "," . $payload . "\n";
+    $txt = _crypt($now) . ",[". _crypt($event) ."]," . _crypt($user) .  "," . _crypt($source) . "," . _crypt($result) . "," . _crypt($payload) . "\n";
     fwrite($file, $txt);
     fclose($file);
 }
 
 /**
- * Encrypt and decrypt:
- * This function is used to encrypt data before writing to the database and decrypt upon retrieval from the database.
- * @author Nazmul Ahsan <n.mukto@gmail.com>
- * @link http://nazmulahsan.me/simple-two-way-function-encrypt-decrypt-string/
+ * Encrypt and decrypt: PHP encrypt and decrypt using OpenSSL
+ * This function is used to encrypt data before writing to the database/log and decrypt upon retrieval from the database/log.
+ * Adapted from https://gist.github.com/joashp/a1ae9cb30fa533f4ad94
+ * @link http://php.net/manual/en/function.openssl-encrypt.php
  * @param string $string string to be encrypted/decrypted
  * @param string $action what to do with this? e for encrypt, d for decrypt
  * @return bool
  */
 function _crypt( $string, $action = 'e') {
+
+    $output = false;
+
+    // Encryption method
+    $encrypt_method = "AES-256-CBC";
+
+    // Secrets
     $secret_key = 'secure_app_secret_key';
     $secret_iv = 'secure_app_secret_iv';
-    $output = false;
-    $encrypt_method = "AES-256-CBC";
-    $key = hash( 'sha256', $secret_key );
+
+    // Hash
+    $key = hash('sha256', $secret_key);
+
+    // Initialization Vector (AES uses 16 byte blocks)
     $iv = substr( hash( 'sha256', $secret_iv ), 0, 16 );
+
     if( $action == 'e' ) {
+        // Encrypts given data with given method and key, returns a raw or base64 encoded string
         $output = base64_encode( openssl_encrypt( $string, $encrypt_method, $key, 0, $iv ) );
     }
     else if( $action == 'd' ){
+        // Takes a raw or base64 encoded string and decrypts it using a given method and key.
         $output = openssl_decrypt( base64_decode( $string ), $encrypt_method, $key, 0, $iv );
     }
     return $output;
@@ -203,7 +209,7 @@ function clientAttemptQuery($client, $link, $param = "any") {
     $session_sql = "UPDATE clientSession SET Counter = Counter + 1, Tstamp = NOW() WHERE SessionID = '$client'";
     $result = mysqli_query($link,$session_sql);
     if (!$result) {
-        logger("QUERY ERROR", $client, "utils.php", "EXCEPTION");
+        logger("QUERY ERROR", $client, "utils.php", "EXCEPTION", $session_sql );
         die('SQL error. Could not query');
     }
     return "Email "  . htmlspecialchars($param, 3) . " invalid. Login or re-enter.";

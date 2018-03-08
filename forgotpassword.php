@@ -94,7 +94,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                                         // Redirect to logout - clears session variables
                                         header("location: logout.php");
                                     } else {
-                                        logger("QUERY ERROR", $anonClientID, "login.php", "EXCEPTION");
+                                        logger("QUERY ERROR", $anonClientID, "login.php", "EXCEPTION", $updatepw );
                                         echo "Oops! Something went wrong. Please try again later.";
                                     }
                                 }
@@ -121,8 +121,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         else {
             // Email is in the db
-            // Generate a random token using the user's email
-            $token = md5(uniqid($email, true));
+            // Generate a random token.
+            $token = bin2hex(random_bytes(32));
             $setToken = "UPDATE `user` SET token = ?, tokenTime = ? WHERE email = ?";
             if ($stmt = mysqli_prepare($link, $setToken)) {
                 mysqli_stmt_bind_param($stmt, "sss", $param_token, $param_lastLogin, $param_email);
@@ -138,7 +138,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                     // Display the token
                     echo "<div class='alert alert-info text-center' role='alert'>Password reset token: $token</div>";
                 } else {
-                    logger("QUERY ERROR", $anonClientID, "login.php", "EXCEPTION");
+                    logger("QUERY ERROR", $anonClientID, "login.php", "EXCEPTION", $setToken);
                     echo "Please try again later.";
                 }
             }

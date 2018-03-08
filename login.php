@@ -43,11 +43,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                 if ((mysqli_stmt_num_rows($stmt) == 1)) {
                     mysqli_stmt_bind_result($stmt, $myusername, $hashed_password, $llogin, $att);
                     if (mysqli_stmt_fetch($stmt)) {
-                        $att = $att;
-                        $time = strtotime($llogin);
                         $current_time = getTime();
+                        $currentTime = date('Y-m-d H:i:s');
+                        $differenceInSeconds = strtotime($currentTime) - strtotime($llogin);
                         // Check the lockout time and attempts
-                        if ((($current_time - $time) < 300) && ($att == 3)) { // 5 minutes
+                        if (((int)$differenceInSeconds <= 300) && ($att == 3)) { // 5 minutes
                             logger("LOGIN", $anonClientID, "login.php", "DENY", "Locked Out");
                             $login_err = "Account blocked - try again later";
                         }
@@ -69,7 +69,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                                         header("location: user.php");
                                     }
                                     else {
-                                        logger("QUERY ERROR", $anonClientID, "login.php", "EXCEPTION");
+                                        logger("QUERY ERROR", $anonClientID, "login.php", "EXCEPTION", $sql );
                                         echo "Please try again later.";
                                     }
                                 }
@@ -85,7 +85,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                                         if(mysqli_stmt_execute($stmt)){
                                             logger("LOGIN", $anonClientID, "login.php", "DENY", $password);
                                         } else {
-                                            logger("QUERY ERROR", $anonClientID, "login.php", "EXCEPTION");
+                                            logger("QUERY ERROR", $anonClientID, "login.php", "EXCEPTION", $user_sql );
                                             echo "Please try again later.";
                                         }
                                     }

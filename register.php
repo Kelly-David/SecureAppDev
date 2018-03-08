@@ -82,13 +82,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="col-lg-6 col-sm-12">
             <div class="card">
                 <div class="card-header">Register
-                    <span class="float-right">
-                            <small class="form-text text-muted">
-                                <a href="" data-toggle="collapse" data-target="#demo">
-                                    <i class="fa fa-info" aria-hidden="true">&nbsp;</i>
-                                </a>
-                            </small>
-                            <span>
                 </div>
                 <div class="card-body">
                     <form action="" method="post" autocomplete="off" >
@@ -122,14 +115,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                     </form>
                 </div>
                 <div class="card-footer">
-                    <div id="demo" class="collapse">
-                        <small class="form-text text-muted">
-                            <b>Username: </b> Enter a username.<br>
-                            <b>Email: </b> Enter a valid email address.<br>
-                            <b>Date of Birth: </b> Specify date of birth.<br>
-                            <b>Password: </b> Minimum length is 6. Must contain at least: 1 uppercase char, 1 number.
-                        </small>
-                    </div>
                 </div>
             </div>
         </div>
