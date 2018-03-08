@@ -219,8 +219,8 @@ function clientAttemptQuery($client, $link, $param = "any") {
 /**
  * @param $client
  * @param $link
- * @param $param
  * @return string
+ * @internal param $param
  */
 function clientAttemptReset($client, $link) {
     $session_sql = "UPDATE clientSession SET Counter = 0, Tstamp = NOW() WHERE SessionID = '$client'";

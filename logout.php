@@ -15,7 +15,6 @@ $client = $_SESSION['AnonClientSessionID'];
 logger("LOGOUT", $client, "logout.php", "SUCCESS", $email);
 $email = "";
 
-session_start();
 if(isset($_COOKIE[session_name()])) {
     setcookie(session_name(),'',time()-3600);
 }

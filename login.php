@@ -64,7 +64,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                                         logger("LOGIN", $anonClientID, "login.php", "SUCCESS", $email);
                                         // Reset the client login attempts to 0
                                         clientAttemptReset($anonClientID, $link);
-                                        session_start();
                                         $_SESSION['username'] = $email;
                                         header("location: user.php");
                                     }

@@ -22,7 +22,7 @@ echo "  </head>
 $log = csv_to_array('test.csv');
 
 
-echo "<table class='table table-sm table-responsive'>";
+echo "<table class='table table-sm table-responsive' style='font-size: .8rem'>";
 echo "<thead>";
 echo "<tr>";
 echo "<th>Time</th>";
