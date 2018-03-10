@@ -9,6 +9,13 @@
 date_default_timezone_set("Europe/Dublin");
 
 /**
+ * Globals
+ * generated using bin2hex(random_bytes(32));
+ */
+$secret_key = "69267228c9c10719e21273d00e11cbc7062c0d2d829290ab1408effcfd136b7e";
+$secret_iv = "1118fc7a28adab336486dfbe474609e4b56cb83ca9ee980ebdb72f9cd79d9ee4";
+
+/**
  * @param $data
  */
 function debug_to_console($data ) {
@@ -170,8 +177,8 @@ function _crypt( $string, $action = 'e') {
     $encrypt_method = "AES-256-CBC";
 
     // Secrets
-    $secret_key = 'secure_app_secret_key';
-    $secret_iv = 'secure_app_secret_iv';
+    $secret_key =  $GLOBALS['secret_key'];
+    $secret_iv = $GLOBALS['secret_iv'];
 
     // Hash
     $key = hash('sha256', $secret_key);

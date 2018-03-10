@@ -63,7 +63,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             $sql = "SELECT token, tokenTime FROM `user` WHERE token = ? AND dob = ?";
             if ($stmt = mysqli_prepare($link, $sql)) {
                 mysqli_stmt_bind_param($stmt, "ss", $param_token, $param_dob);
-                $param_token = $token;
+                $param_token = _crypt($token);
                 $param_dob = _crypt($dob);
                 if (mysqli_stmt_execute($stmt)) {
                     mysqli_stmt_store_result($stmt);
@@ -86,7 +86,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                                     $param_password = password_hash($password, PASSWORD_DEFAULT);
                                     // Clear the existing token
                                     $param_token_reset = "";
-                                    $param_token = $token;
+                                    $param_token = _crypt($token);
                                     if (mysqli_stmt_execute($stmt)) {
                                         logger("PASSWORD_RESET", $anonClientID, "forgotpassword.php", "SUCCESS", $email);
                                         mysqli_stmt_close($stmt);
@@ -126,7 +126,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             $setToken = "UPDATE `user` SET token = ?, tokenTime = ? WHERE email = ?";
             if ($stmt = mysqli_prepare($link, $setToken)) {
                 mysqli_stmt_bind_param($stmt, "sss", $param_token, $param_lastLogin, $param_email);
-                $param_token = $token;
+                $param_token = _crypt($token);
                 // Time
                 $param_lastLogin = getTime();
                 // Set email
